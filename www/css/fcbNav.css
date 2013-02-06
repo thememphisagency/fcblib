@@ -1,0 +1,279 @@
+
+/*** ESSENTIAL STYLES ***/
+.fcbNav, .fcbNav * {
+	margin:	0;
+	padding: 0;
+	list-style:	none;
+}
+.fcbNav {
+	line-height: 1.0;
+	z-index: 50;
+}
+.fcbNav ul {
+	position: absolute;
+	top: -999em;
+	width: 10em; /* left offset of submenus need to match (see below) */
+}
+.fcbNav ul li {
+	width: 100%;
+}
+.fcbNav li:hover {
+	visibility: inherit; /* fixes IE7 'sticky bug' */
+}
+.fcbNav li {
+	float: left;
+	position: relative;
+}
+.fcbNav a {
+	display: block;
+	position: relative;
+}
+.fcbNav li:hover ul,
+.fcbNav li.sfHover ul {
+	left: -1px;
+	top: 39px; /* match top ul list item height */
+	z-index: 45;
+}
+ul.fcbNav li:hover li ul,
+ul.fcbNav li.sfHover li ul {
+	top: -999em;
+}
+ul.fcbNav li li:hover ul,
+ul.fcbNav li li.sfHover ul {
+	left: 10em; /* match ul width */
+	top: 0;
+}
+ul.fcbNav li li:hover li ul,
+ul.fcbNav li li.sfHover li ul {
+	top: -999em;
+}
+ul.fcbNav li li li:hover ul,
+ul.fcbNav li li li.sfHover ul {
+	left: 10em; /* match ul width */
+	top: 0;
+}
+
+/*
+-------------------------------------------------------------------
+THINGS TO CHANGE
+-------------------------------------------------------------------
+*/
+
+.fcbNav a {
+	font-size: 14px;
+	font-weight: bold;
+	height: 39px;
+	line-height: 39px;
+	padding: 0 1em;
+	text-align: center;
+	text-decoration: none!important;
+	}
+	
+	.fcbNav a {
+		color: #D9DEE9;
+	}
+	.fcbNav li {
+		background: transparent url(/wsimages/nav/bg_nav.gif) repeat-x scroll left top;
+		margin: 0 1px 0 0;
+		}
+		.fcbNav li a {
+			border-left: 1px solid #474747;
+			border-right: 1px solid #474747;
+			float: left;
+		}
+		.fcbNav li.active a  {
+			background: transparent url(/wsimages/nav/bg_navActive.gif) repeat-x scroll left bottom;		
+			color:#FF6600;
+			border-left: 1px solid #222222;
+			border-right: 1px solid #222222;			
+		}
+		.fcbNav li.last{
+			margin: 0;			
+			}
+			.fcbNav li.last a {
+				border: none;
+			}	
+												
+		.fcbNav li:hover, .fcbNav li.sfHover,
+		.fcbNav a:focus, .fcbNav a:hover, .fcbNav a:active {
+			background: transparent url(/wsimages/nav/bg_navHover.gif) repeat-x scroll left bottom;
+			color: #D9DEE9;
+			outline: 0;
+			}
+	
+/*=================================================
+	Styles for rounded corner
+===================================================*/
+
+	.fcbNav li.first{
+		background: url(/wsimages/nav/bg_navBgFirst.gif) left top no-repeat;
+		}
+		.fcbNav li.first a{
+			border-left: 0;		
+		}
+		.fcbNav li.first.active, .fcbNav li.first.active a{
+			background: url(/wsimages/nav/bg_navActiveFirst.gif) left top no-repeat;
+		}
+		.fcbNav li.first.sfHover, .fcbNav li.first a:hover{
+			background: url(/wsimages/nav/bg_navHoverFirst.gif) left top no-repeat;
+			border-right: 1px solid #474747;
+		}		
+		.fcbNav li.last{
+			background: url(/wsimages/nav/bg_navBgLast.gif) right top no-repeat;
+			}
+			.fcbNav li.last.active, .fcbNav li.last.active a{
+				background: url(/wsimages/nav/bg_navActiveLast.gif) right top no-repeat;
+			}
+			.fcbNav li.last.sfHover, .fcbNav li.last a:hover{
+				background: url(/wsimages/nav/bg_navHoverLast.gif) right top no-repeat;
+			}
+
+	/*----------------------------------------------------------
+		Because IE6 doesn't support multiple class selectors, 
+		so we'll have to remove the rounded corners
+	----------------------------------------------------------*/	
+
+	* html .fcbNav li {
+		background: #0a2859 url(/wsimages/nav/bg_nav.gif) repeat-x scroll left top !important;
+	}		
+	* html .fcbNav li.active a  {
+		background: #aa9b70 url(/wsimages/nav/bg_navActive.gif) repeat-x scroll left bottom !important;
+	}
+	* html .fcbNav li.first a{
+		border-left: 1px solid #474747;
+	}
+	* html .fcbNav li:hover, * html .fcbNav li.sfHover,
+	* html .fcbNav a:focus, * html .fcbNav a:hover, * html .fcbNav a:active {
+		background: #0a224b url(/wsimages/nav/bg_navHover.gif) repeat-x scroll left bottom !important;
+	}	
+			
+
+
+/*  Set default sub menu */
+.fcbNav li li {
+	background:	#484848;
+	margin: 0;
+	border: none;
+	}
+	.fcbNav li li a {
+		height: auto;
+		line-height: 1em;
+		padding: 8px 1em;
+		font-size: 12px;
+		border: 1px solid #1A1A1A;
+		border-top: none;
+		text-align: left;
+		color: #D9DEE9;
+	}
+	.fcbNav li.active li a{
+		border-right: 1px solid #1A1A1A;
+	} 
+
+.fcbNav li ul {
+
+}
+
+.fcbNav li.parent:hover a, .fcbNav li.parent.sfHover a {
+	color: #D9DEE9;
+}
+
+.fcbNav li.parent:hover li a, .fcbNav li.parent.sfHover li a {
+	color: #D9DEE9;
+}
+
+.fcbNav li li.parent a {
+	padding-right: 30px;
+}
+
+.fcbNav li:hover li a, .fcbNav li.sfHover li a {
+	background: none;
+}
+.fcbNav li.active:hover a, .fcbNav li.active.sfHover a{
+	color: #FF6600;
+}
+
+
+/*  Second Level */
+.fcbNav li li  {
+	background:	#484848;
+}
+
+.fcbNav li li:hover, .fcbNav li li.sfHover,
+.fcbNav li li a:focus, .fcbNav li li a:hover {
+	background: #232323;
+	color: #D9DEE9;
+	}
+
+/*  Third Level */
+.fcbNav li li li {
+	background: #232323;
+	}
+	.fcbNav li li li a{
+		font-weight: normal;
+	}
+	
+.fcbNav li li li:hover, .fcbNav li li li.sfHover,
+.fcbNav li li li a:focus, .fcbNav li li li a:hover {
+	background: #484848;
+	}
+
+/*  Fourth Level */
+.fcbNav li li li li {
+	background: #484848;
+}
+	
+.fcbNav li li li li:hover, .fcbNav li li li li.sfHover,
+.fcbNav li li li li a:focus, .fcbNav li li li li a:hover, .fcbNav li li li li a:active {
+	background: #232323;
+	}
+
+/*  Arrows */
+.indicator {
+	position: absolute;
+	display: block;
+	right: .75em;
+	top: .9em; /* IE6 only */
+	width: 10px;
+	height: 10px;
+	text-indent: -999em;
+	background: url("/wsimages/nav/arrows.gif") -10px 0 no-repeat;
+}
+a > .indicator {  /* give all except IE6 the correct values */
+	top: .70em;
+}
+
+/* apply hovers to modern browsers */
+a:focus > .indicator,
+a:hover > .indicator,
+a:active > .indicator,
+li:hover > a > .indicator,
+li.sfHover > a > .indicator {
+	background-position: 0 0; /* arrow hovers for modern browsers*/
+}
+
+/*  Sub menu z-index */
+.fcbNav li:hover,
+.fcbNav li.sfHover {
+	z-index: 99!important;
+}
+
+.fcbNav li li:hover,
+.fcbNav li li.sfHover {
+	z-index: 100!important;
+}
+.fcbNav li li li:hover,
+.fcbNav li li li.sfHover {
+	z-index: 101!important;
+}
+.fcbNav li li li:hover,
+.fcbNav li li li.sfHover {
+	z-index: 102!important;
+}
+
+.fcbNav li li ul {
+	margin-left: -1px;
+	margin-top: -1px;
+	border-top: 1px solid #1A1A1A;
+	}
+	
+	

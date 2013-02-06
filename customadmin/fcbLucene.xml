@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<webtop>
+	<section mergeType="merge" id="admin">
+		<subsection mergeType="merge" id="fcbLucenesubSection" label="Search Management" labelType="value">
+
+			<menu mergeType="merge" id="fcbLucenemenu" label="Search Settings" labelType="value">
+				<menuitem mergeType="merge" id="fcbLucenemenuitem01" label="Manage Collections" link="/admin/customadmin.cfm?module=customlists/fcblucene.cfm&amp;plugin=fcblib" />				
+				<menuitem mergeType="merge" id="fcbLucenemenuitem02" label="Update/Create Collection" link="/admin/customadmin.cfm?module=customlists/rebuild.cfm&amp;plugin=fcblib" />
+			</menu>
+
+		</subsection>
+	</section>
+</webtop>

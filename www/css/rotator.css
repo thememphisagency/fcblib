@@ -1,0 +1,90 @@
+/*
+-------------------------------------------------------------------
+ROTATOR:
+-------------------------------------------------------------------
+*/	
+
+/*--- ROTATOR VIEWING FRAME --*/
+#viewFrame{
+	overflow: hidden;
+	}
+	* html #viewFrame{
+		width: 706px;
+	}
+	.setHeight{
+		min-height: 90px;		
+		position: relative;			
+	}
+	.placement{
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+	}
+/*--- ROTATOR TEASER --*/	
+#paginatedContent .horizontal .teaser{
+	width: 918px;
+	float: left;
+	}
+	
+/*--- ROTATOR PAGINATION --*/
+	#paginatedContent{
+		background: #E4E4E4;
+	}
+	#paginatedContent .header{
+		width: 100%;
+		overflow: hidden;
+		padding: 10px 0;
+		/*background: #D5D5D5;
+		border-bottom:1px solid #A7A7A7;
+		border-top:1px solid #A7A7A7;*/
+		}
+		#paginatedContent .header h2{
+			width: 200px;
+			float: left;
+			padding-left: 23px;
+			font-size: 24px;
+		}
+	#paginatedContent .paginator{
+		width: 100px;
+		float: right;
+		padding-right: 22px;
+	}
+	#paginatedContent .paginator .pageWrap{
+		float: right;
+		width: 45px;
+	}	
+	#paginatedContent .pageWrap a{
+		background: transparent url("/wsimages/paginator.gif") top left no-repeat;
+		width: 19px;
+		height: 19px;
+		display: block;
+		float: left;
+	}
+	
+	#paginatedContent #infoSection .pageWrap a{
+		background-image: url("/wsimages/paginatorred.gif");
+	}
+	
+	#paginatedContent .pageWrap .nextActive{
+		background-position: left -19px;
+		margin-left: 4px;
+	}	
+	#paginatedContent .pageWrap .prevInactive{
+		background-position: left -38px;
+		cursor: text;
+	}
+	#paginatedContent .pageWrap .nextInactive{
+		background-position: left -57px !important;
+		cursor: text;
+		margin-left: 4px;
+	}	
+	#paginatedContent .pageWrap a span{
+		display: none;
+	}
+	#paginatedContent .paginator p{
+		font-size: 1.1em;
+		color: #47443f;
+		float: left;
+		padding: 3px 0 0 7px;
+	}

@@ -1,0 +1,109 @@
+.resultDetails {
+	margin: 16px 0 16px;
+	padding: 0 24px;
+	}
+	.resultDetails p {
+		font-weight: bold;
+	}
+	.resultDetails p span.criteria {
+		color: #c74200;
+	}
+
+.result {
+	padding:22px 0;
+}
+
+.searchInput {
+	height: 30px;
+	padding: 0 24px;
+}
+
+.noResults {
+	padding: 0 24px;
+}
+
+ul.searchResults{
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	background: none;
+	border-top:1px solid #C5C7C7
+	}
+	ul.searchResults li {
+		margin: 0;
+		list-style: none;
+		clear: both;
+		padding: 0 23px;
+		border-bottom:1px solid #C5C7C7
+	}
+	ul.searchResults li h3 {
+		font-size: 12px;
+		color: #c00;
+		margin:0 0 10px 0;
+		padding-top: 15px;
+	}
+	ul.searchResults li h3 a{
+		color: #c00;
+		font-size:18px;
+		text-decoration: none;
+	}
+	ul.searchResults .score{
+		color: #373737;
+	}
+	ul.searchResults li p.summary {
+		margin: 0 0 15px;
+		color: #20292F;
+		font-size: 12px;
+		}
+		ul.searchResults li p.summary span.criteria {
+			background: #333;
+			color: #fff;
+			padding: 0 4px;
+		}
+		ul.searchResults li p.summary span {
+			background:#c74200 none repeat scroll 0 0 !important;
+			color:#ffffff;
+			padding:0 4px !important;
+		}
+
+/*-- PAGINATOR --*/
+p.pagination {
+	margin: 0 0 0 0px;
+	padding: 0 0 10px 24px;
+	width: 771px;
+	overflow: hidden;
+	}
+	p.pagination span, p.pagination a {
+		display: block;
+		float: left;
+	 	background:url('/wsimages/bg_searchPageNo.gif') no-repeat;
+	 	padding: 1px 6px 2px;
+	 	margin: 0 2px 0 0;
+	 	color: #fff;
+	 	text-decoration: none;
+	 	font-size: 12px;
+	 	font-weight: bold;
+	 	}
+ 		p.pagination span {
+ 			background: none;
+	 		padding: 1px 6px 2px;
+	 		color: #c7425b;
+ 		}
+		
+		p.pagination a.next, p.pagination span.next, p.pagination a.prev, p.pagination span.prev {
+			background: url("../wsimages/paginationArrows.gif") 0 -15px no-repeat;
+			width: 8px;
+			height: 22px;
+			text-indent: -9999px;
+			float: left;
+			padding: 0;
+			margin: 0 6px 0 0;
+			border: none;
+			}
+			p.pagination a.next {
+				background-position: 0 2px;
+				margin: 0 0 0 8px;
+			}
+			p.pagination span.next,p.pagination span.prev {
+				display: none;
+			}
