@@ -9,7 +9,7 @@
 </cfif>
 
 <cfif isDefined("request.ver") and request.ver>
-	<cfoutput><!-- _FcbNav $Revision: 0.1 $ --></cfoutput>
+	<cfoutput><!-- _FcbNav $Revision: 0.2 $ --></cfoutput>
 </cfif>
 
 <!--- params --->
@@ -87,14 +87,9 @@
 		select max(nRight) as maxRight from qNav
 	</cfquery>
 </cfif>
-<cffunction name="dump">
-	<cfargument name="arg">
-	<cfdump var="#arg#">
-	<cfabort/>
-</cffunction>
 
 <cfoutput>
-<div id="navMain" class="clearfix">
+<nav id="menu" role="navigation">
 </cfoutput>
 
 <cfif attributes.displayStyle EQ "aLink">
@@ -292,9 +287,9 @@
 			
 </cfscript>
 </cfif>
-<cfoutput>
-	</div>
-</cfoutput>
+
+<cfoutput></nav></cfoutput>
+
 <cfsetting enablecfoutputonly="no" />
 
 <cffunction name="getURL" output="false" returntype="string">
