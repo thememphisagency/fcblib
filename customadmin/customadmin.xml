@@ -7,6 +7,7 @@
 		<menu id="farcrycmsmenu" mergeType="merge" sequence="10" label="Content Types">
 			<menuitem id="listfcbTestimonial" sequence="20" label="Testimonials" link="/admin/customadmin.cfm?module=customlists/fcbTestimonial.cfm&amp;plugin=fcblib" relatedtype="fcbTestimonial" />
 			<menuitem id="listfcbContact" sequence="22" label="Contacts" link="/admin/customadmin.cfm?module=customlists/fcbContact.cfm&amp;plugin=fcblib" relatedtype="fcbContact" />
+			<menuitem id="listExternalVideo" sequence="29" label="External Video" link="/admin/customadmin.cfm?module=/customlists/fcbExternalVideo.cfm&amp;plugin=fcbLib" icon="dmarchive" description="" />
 		</menu>
 	</subsection>
 	<subsection id="contentpublishing" mergeType="merge" sequence="10" label="Content Publishing">

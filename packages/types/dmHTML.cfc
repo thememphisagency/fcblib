@@ -5,6 +5,21 @@
 	<cfproperty ftSeq="7" ftwizardStep="Start" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
 	<cfproperty ftSeq="10" ftwizardStep="Body" bCleanHTML="1" ftFieldset="Teaser" name="Teaser" type="longchar" hint="Teaser text." required="no" default="">
 
+	<cfproperty 
+	name="Body" type="longchar" hint="Main body of content." required="no" default="" 
+	ftSeq="12" ftwizardStep="Web Page" ftFieldset="Body" ftLabel="Body" 
+	ftType="richtext" 
+	ftImageArrayField="aObjectIDs" ftImageTypename="dmImage" ftImageField="StandardImage"
+	ftTemplateTypeList="dmImage,dmFile,dmNavigation,dmHTML,fcbExternalVideo" ftTemplateWebskinPrefixList="insertHTML"
+	ftLinkListFilterRelatedTypenames="dmFile,dmNavigation,dmHTML,fcbExternalVideo"
+	ftTemplateSnippetWebskinPrefix="insertSnippet">
+
+	<cfproperty name="aObjectIDs" type="array" hint="Related media items for this content item." required="no" default=""
+	ftSeq="13" ftwizardStep="Web Page" ftFieldset="Relationships" ftLabel="Associated Media" 
+	ftType="array" ftJoin="dmImage,dmFile,dmFlash,fcbExternalVideo" 
+	ftShowLibraryLink="false" ftAllowAttach="true" ftAllowAdd="true" ftAllowEdit="true" ftRemoveType="detach"
+	bSyncStatus="true">  
+
 	<cfimport taglib="/farcry/core/tags/formtools/" prefix="ft" />
 	<cfimport taglib="/farcry/core/tags/wizard/" prefix="wiz" />
 	<cfimport taglib="/farcry/core/tags/navajo/" prefix="nj" />
