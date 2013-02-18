@@ -270,7 +270,7 @@
 		
 	</cffunction>
 
-	<cffunction name="renderSmartPagination" output="false" hint="Creates the smart paging links" returntype="struct">
+	<cffunction name="renderSmartPagination" output="true" hint="Creates the smart paging links" returntype="struct">
 		<cfargument name="currentPage" required="true" type="string">
 		<cfargument name="itemsPerPage" required="true" type="string">
 		<cfargument name="totalRecs" required="true" type="string">
@@ -328,21 +328,21 @@
 			</cfif>
 			<cfif pageTo gt pages>
 				<cfset pageTo = pages>
-			</cfif>			
+			</cfif>	
 
 			<cfsavecontent variable="pagingHTML">
 
 				<cfoutput><ul class="pagination"></cfoutput>
 
 				<cfif currentPage EQ 1>
-					<!--- If this is first page, pagination formation would be (1),2,3,4,5 (if there are 5 or more pages) --->
+					<!--- If this is first page, pagination formation would be (1),2,3 (if there are 3 or more pages) --->
 					<cfoutput>
 						<li class="prev unavailable"><span>&##60;&##60;&##60;</span></li>
 						<li class="current"><span>#currentPage#</span></li>
 					</cfoutput>
 					
 					<cfset tempPageFrom = currentPage + 1 />
-					<cfset tempPageTo = currentPage + 4>
+					<cfset tempPageTo = currentPage + 2>
 					
 					<cfif tempPageFrom GT pageTo>
 						<cfset tempPageFrom = pageTo />
@@ -356,10 +356,6 @@
 							<cfoutput><li><a href="#sURLParam#currentPage=#i##sAnchor#">#i#</a></li></cfoutput>
 						</cfloop>				
 					</cfif>
-
-					<cfif tempPageTo LT PageTo>
-						<li class="unavailable"><span>...</span></li>	
-					</cfif>
 					
 					<cfif PageTo GT 1>
 						<cfoutput><li class="next"><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#">&##62;&##62;&##62;</a></li></cfoutput>
@@ -368,16 +364,16 @@
 					</cfif>
 	
 				<cfelseif currentPage IS 2>
-					<!--- If this is second page, pagination formation would be 1,(2),3,4,5 (if there are 5 or more pages) --->
+					<!--- If this is second page, pagination formation would be 1,(2),3 (if there are 3 or more pages) --->
 					<cfoutput>
-						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#"><span>&##60;&##60;&##60;</span></a></li>	
+						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">&##60;&##60;&##60;</a></li>	
 						<li><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">#currentPage - 1#</a></li>
 						<li class="current"><span>#currentPage#</span></li>
 					</cfoutput>
 					
 					<cfset tempPageFrom = currentPage + 1 />
-					<cfset tempPageTo = currentPage + 3>
-					
+					<cfset tempPageTo = currentPage + 1>
+
 					<cfif tempPageFrom GT pageTo>
 						<cfset tempPageFrom = pageTo />
 					</cfif>
@@ -389,10 +385,6 @@
 						<cfloop from="#tempPageFrom#" to="#tempPageTo#" index="i">
 							<cfoutput><li><a href="#sURLParam#currentPage=#i##sAnchor#">#i#</a></li></cfoutput>
 						</cfloop>				
-					</cfif>				
-	
-					<cfif currentPage + 2 LT pageTo>
-						<li class="unavailable"><span>...</span></li>	
 					</cfif>
 	
 					<cfif currentPage + 1 LTE pageTo>
@@ -401,18 +393,14 @@
 						<cfoutput><li class="next unavailable"><span>&##62;&##62;&##62;</span></li></cfoutput>
 					</cfif>
 				<cfelseif currentpage EQ pageTo - 1>
-					<!--- If this is second last page, pagination formation would be 1,2,3,(4),5 (if there are 5 or more pages) --->
+					<!--- If this is second last page, pagination formation would be 3,(4),5 (if there are 3 or more pages) --->
 					
 					<cfoutput>
-						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">Previous</a></li>
+						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">&##60;&##60;&##60;</a></li>
 					</cfoutput>
 
-					<cfif currentPage - 2 GT 2>
-						<li class="unavailable"><span>...</span></li>	
-					</cfif>
-					
-					<cfset tempPageFrom = currentPage - 3 />
-					<cfset tempPageTo = currentPage - 1>
+					<cfset tempPageFrom = currentPage - 1 />
+					<cfset tempPageTo = currentPage - 1 >
 					
 					<cfif tempPageFrom LTE 0>
 						<cfset tempPageFrom = 1 />
@@ -420,27 +408,25 @@
 					<cfif tempPageTo LTE 0>
 						<cfset tempPageTo = currentPage />
 					</cfif>
-	
-					<cfif tempPageFrom NEQ tempPageTo>
-						<cfloop from="#tempPageFrom#" to="#tempPageTo#" index="i">
-							<cfoutput><li><a href="#sURLParam#currentPage=#i##sAnchor#">#i#</a></li></cfoutput>
-						</cfloop>				
-					</cfif>			
+					
+					<cfloop from="#tempPageFrom#" to="#tempPageTo#" index="i">
+						<cfoutput><li><a href="#sURLParam#currentPage=#i##sAnchor#">#i#</a></li></cfoutput>
+					</cfloop>
 	
 					<cfoutput>
 						<li class="current"><span>#currentPage#</span></li>
-						<li class="next"><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#">#currentPage + 1#</a></li>
-						<li class="next"><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#"><span>&##62;&##62;&##62;</span></a></li>
+						<li><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#">#currentPage + 1#</a></li>
+						<li class="next"><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#">&##62;&##62;&##62;</a></li>
 					</cfoutput>		
 										
 				<cfelseif currentPage EQ pageTo>
-					<!--- If this is last page, pagination formation would be 1,2,3,4,(5) (if there are 5 or more pages) --->
+					<!--- If this is last page, pagination formation would be 1,2,(3) (if there are 3 or more pages) --->
 					
 					<cfoutput>
-						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#"><span>&##60;&##60;&##60;</span></a></li>
+						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">&##60;&##60;&##60;</a></li>
 					</cfoutput>
 													
-					<cfset tempPageFrom = currentPage - 4 />
+					<cfset tempPageFrom = currentPage - 2 />
 					<cfset tempPageTo = currentPage - 1>
 					
 					<cfif tempPageFrom LTE 0>
@@ -449,10 +435,6 @@
 					<cfif tempPageTo LTE 0>
 						<cfset tempPageTo = currentPage />
 					</cfif>
-
-					<cfif tempPageFrom NEQ 1>
-						<li class="unavailable"><span>...</span></li>	
-					</cfif>	
 	
 					<cfif tempPageFrom NEQ tempPageTo>
 						<cfloop from="#tempPageFrom#" to="#tempPageTo#" index="i">
@@ -467,18 +449,10 @@
 	
 				<cfelse>
 					<cfoutput>
-						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#"><span>&##60;&##60;&##60;</span></a></li>
-						<cfif currentPage - 2 GTE 2>
-						<li class="unavailable"><span>...</span></li>	
-						</cfif>
-						<cfif currentPage - 2 GT 0><li><a href="#sURLParam#currentPage=#currentPage - 2##sAnchor#">#currentPage - 2#</a></li></cfif>
+						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">&##60;&##60;&##60;</a></li>
 						<cfif currentPage - 1 GT 0><li><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">#currentPage - 1#</a></li></cfif>
 						<li class="current"><span>#currentPage#</span></li>
-						<cfif currentPage + 1 LTE pageTo><li class="next"><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#">#currentPage + 1#</a></li></cfif>
-						<cfif currentPage + 2 LTE pageTo><li><a href="#sURLParam#currentPage=#currentPage + 2##sAnchor#">#currentPage + 2#</a></li></cfif>
-						<cfif currentPage + 3 LTE pageTo>
-							<li class="unavailable"><span>...</span></li>						
-						</cfif>
+						<cfif currentPage + 1 LTE pageTo><li><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#">#currentPage + 1#</a></li></cfif>
 						<li class="next"><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#">&##62;&##62;&##62;</a></li>				
 					</cfoutput>		
 				</cfif>
