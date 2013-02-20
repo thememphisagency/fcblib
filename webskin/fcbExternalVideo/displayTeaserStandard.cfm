@@ -12,7 +12,7 @@
 	<cfset stObj.link = replaceNoCase(stObj.link, '&', '&amp;', 'all') />
 	
 	<cfoutput>
-		<iframe class="youtube-player" type="text/html" src="#stObj.link#" frameborder="0">
+		<iframe class="youtube-player" type="text/html" src="#stObj.link#">
 		</iframe>	
 	</cfoutput>		
 <cfsetting enablecfoutputonly="false" />

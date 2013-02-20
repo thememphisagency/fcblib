@@ -12,9 +12,10 @@
 
 <cfoutput>
 	<li class="teaser">
-		<h3><span class="score">#round(stParam.score * 100)#%</span><ui:buildLink objectId=#stObj.objectid# linkText="#stObj.label#" /></h3>
-	<cfif StructKeyExists(stObj,"teaser") GT 0 AND len(trim(stObj.teaser)) GT 0>
+		<h3><ui:buildLink objectId=#stObj.objectid# linkText="#stObj.label#" /></h3>
+		<cfif StructKeyExists(stObj,"teaser") GT 0 AND len(trim(stObj.teaser)) GT 0>
 		<p class="summary">#oLucene.cleanSearchResults(stObj.teaser, form.criteria)#</p>
-	</cfif>
+		</cfif>
+		<a class="read-more" href="#application.fapi.getLink(objectid=stObj.objectid)#">Read More</a>
 	</li>
 </cfoutput>
