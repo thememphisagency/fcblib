@@ -19,7 +19,7 @@
 <!--- @@displayname: Link Content Type --->
 <!--- @@Description: Records links to external web assets. --->
 <!--- @@Developer: Geoff Bowers (modius@daemon.com.au) --->
-<cfcomponent extends="farcry.plugins.farcrycms.packages.types.dmLink" displayname="Link" bSchedule="true" bUseInTree="true" bFriendly="true" bObjectBroker="true" bPaginatorSearchByCategory="1" bPaginatorAnimateByTypeRule="1">
+<cfcomponent extends="farcry.plugins.farcrycms.packages.types.dmLink" displayname="Link" bSchedule="true" bUseInTree="false" bFriendly="true" bObjectBroker="true" bPaginatorSearchByCategory="1" bPaginatorAnimateByTypeRule="1">
 
 	<cfproperty ftseq="1" ftFieldset="Link Information" bCleanHTML="1" name="title" type="string" hint="Meaningful reference title for link" required="no" default="" ftlabel="Title" blabel="true" ftvalidation="required" />
 	<cfproperty ftseq="2" ftfieldset="Link Information" bCleanHTML="1" name="teaser" type="longchar" hint="A brief description of the link" required="no" default="" ftlabel="Teaser" />
