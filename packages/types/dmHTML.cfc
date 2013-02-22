@@ -279,4 +279,34 @@
 
 	</cffunction>
 
+	<cffunction name="getObjectIDByAlias">
+		<cfargument name="alias" type="string" required="true" />
+
+		<cfset returnObjID = "" />
+
+		<cfif len(arguments.alias) GT 0>
+			<cfquery name="qObjID" datasource="#application.dsn#">
+				SELECT t3.objectID
+				FROM dmNavigation AS t1
+
+					INNER JOIN dmNavigation_aObjectIDs AS t2
+					ON t1.objectID = t2.parentID
+					
+					INNER JOIN dmHTML AS t3
+					ON t2.data = t3.objectID
+
+				WHERE lNavIDAlias = <cfqueryparam value="#arguments.alias#" cfsqltype="cf_sql_varchar" />
+				LIMIT 0,1
+			</cfquery>
+
+			<cfif qObjID.recordCount GT 0>
+				<cfset returnObjID = qObjID.objectID />
+			</cfif>
+
+		</cfif>
+		
+		<cfreturn returnObjID />
+
+	</cffunction>
+
 </cfcomponent>
