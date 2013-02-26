@@ -309,4 +309,27 @@
 
 	</cffunction>
 
+	<cffunction name="getPageNavId">
+		<cfargument name="objectId" type="string" required="true" />		
+		<cfif len(arguments.objectId) GT 0>
+			<cfquery name="q" datasource="#application.dsn#">
+				SELECT t1.objectID
+				FROM dmNavigation AS t1
+
+					INNER JOIN dmNavigation_aObjectIDs AS t2
+					ON t1.objectID = t2.parentID
+					
+					INNER JOIN dmHTML AS t3
+					ON t2.data = t3.objectID
+
+				WHERE t3.objectId = <cfqueryparam value="#arguments.objectId#" cfsqltype="cf_sql_varchar" />
+				LIMIT 0,1
+			</cfquery>			
+			<cfif q.RecordCount GT 0>
+				<cfreturn q.objectId />
+			</cfif>
+		</cfif>
+		<cfreturn "" />
+	</cffunction>
+
 </cfcomponent>
