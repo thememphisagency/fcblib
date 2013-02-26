@@ -259,7 +259,7 @@
 		}
 	}
 	// end of data, close open items and lists
-	writeOutput(repeatString("</li></ul>",ul));
+	writeOutput(repeatString("</li><li class=""filler""></li></ul>",ul));
 	
 
 	if (attributes.bIncludeHome AND ul EQ 0)
