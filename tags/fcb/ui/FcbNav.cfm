@@ -198,7 +198,7 @@
 							homeclass=homeclass & ' active ';
 						}
 						writeOutput(" class="""&trim(homeclass)&"""");
-						writeOutput("><a href=""#href2#""><span class=""toplevel"">#homeNode.objectName#</span></a></li>");
+						writeOutput("><a href=""#href2#""><span class=""toplevel"">#homeNode.objectName#</span></a></li> ");
 					}
 					ul=ul+1;
 				}
@@ -210,14 +210,14 @@
 				}
 				else if(currentlevel lt previouslevel){
 					// if end of level, close current item
-					writeOutput("</li>");
+					writeOutput("</li> ");
 					// close lists until at correct level
-					writeOutput(repeatString("</ul></li>",previousLevel-currentLevel));
+					writeOutput(repeatString("</ul></li> ",previousLevel-currentLevel));
 					ul=ul-(previousLevel-currentLevel);
 				}
 				else{
 					// close item
-					writeOutput("</li>");
+					writeOutput("</li> ");
 				}
 				if(attributes.bFirst){
 					if(previouslevel eq 0 AND bHomeFirst) {
@@ -259,7 +259,7 @@
 		}
 	}
 	// end of data, close open items and lists
-	writeOutput(repeatString("</li><li class=""filler""></li></ul>",ul));
+	writeOutput(repeatString("</li> <li class=""filler""></li> </ul>",ul));
 	
 
 	if (attributes.bIncludeHome AND ul EQ 0)
