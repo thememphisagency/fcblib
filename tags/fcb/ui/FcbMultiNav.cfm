@@ -403,7 +403,8 @@
 	// end of data, close open items and lists
 	//writeOutput("</li></ul></div></div></li></ul>");
 
-	writeOutput(repeatString("</li></ul></div></div>",ul));
+	//writeOutput(repeatString("</li></ul></div></div>",ul));
+	writeOutput(repeatString("</li></ul>",ul));
 	
 
 	if (attributes.bIncludeHome AND ul EQ 0)
@@ -432,7 +433,7 @@
 </cfscript>
 </cfif>
 
-<cfoutput></nav></cfoutput>
+<cfoutput></nav></div></div></cfoutput>
 
 <cfsetting enablecfoutputonly="no" />
 
