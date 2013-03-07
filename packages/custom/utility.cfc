@@ -389,7 +389,7 @@
 					</cfif>
 	
 					<cfif currentPage + 1 LTE pageTo>
-						<cfoutput><li class="next"><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#">#labels.next#/a></li></cfoutput>
+						<cfoutput><li class="next"><a href="#sURLParam#currentPage=#currentPage + 1##sAnchor#">#labels.next#</a></li></cfoutput>
 					<cfelse>
 						<cfoutput><li class="next unavailable"><span>#labels.next#</span></li></cfoutput>
 					</cfif>
@@ -397,7 +397,7 @@
 					<!--- If this is second last page, pagination formation would be 3,(4),5 (if there are 3 or more pages) --->
 					
 					<cfoutput>
-						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">#labels.next#</a></li>
+						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">#labels.prev#</a></li>
 					</cfoutput>
 
 					<cfset tempPageFrom = currentPage - 1 />
@@ -424,7 +424,7 @@
 					<!--- If this is last page, pagination formation would be 1,2,(3) (if there are 3 or more pages) --->
 					
 					<cfoutput>
-						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">#labels.next#</a></li>
+						<li class="prev"><a href="#sURLParam#currentPage=#currentPage - 1##sAnchor#">#labels.prev#</a></li>
 					</cfoutput>
 													
 					<cfset tempPageFrom = currentPage - 2 />
@@ -478,7 +478,7 @@
 		
 		<cfreturn stReturn>
 	</cffunction>
-	
+
 	<cffunction name="getStartRow" returntype="numeric">
 		<cfargument name="itemsPerPage" type="numeric">
 		<cfset var startrow = (currentpage-1)*itemsPerPage+1>
