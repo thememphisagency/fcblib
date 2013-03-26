@@ -8,8 +8,7 @@
 		<cfargument name="bGeo" type="string" required="false" default="0" />
 		
 		<cfset var html = "" />
-		<cfset var formFieldPrefix = arguments.ftPrefix />
-		<cfset var googleAPIKey = createObject("component",application.types['googleMapAPIKeys'].packagepath).getAPIKey(CGI.HTTP_HOST)>				
+		<cfset var formFieldPrefix = arguments.ftPrefix />			
 		<cfset var sAddress = arguments.address />
 		<cfset var sLat = -34.92577 />
 		<cfset var sLng = 138.599732 />
