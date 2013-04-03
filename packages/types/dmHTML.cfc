@@ -3,8 +3,12 @@
 	<cfproperty ftSeq="1" ftwizardStep="Start" bCleanHTML="1" ftFieldset="General Details" name="Title" type="nstring" hint="Title of object.  *perhaps this should be deprecated for object label*" required="no" default="" ftValidation="required">
 	<cfproperty ftSeq="5" ftwizardStep="Start" bCleanHTML="1" ftFieldset="Metadata" name="metaKeywords" type="nstring" hint="HTML head section metakeywords." required="no" default="" ftLabel="Meta Keywords">
 	<cfproperty ftSeq="7" ftwizardStep="Start" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
-	<cfproperty ftSeq="10" ftwizardStep="Body" bCleanHTML="1" ftFieldset="Teaser" name="Teaser" type="longchar" hint="Teaser text." required="no" default="">
-
+	<cfproperty ftSeq="10" ftwizardStep="Teaser" bCleanHTML="1" ftFieldset="Teaser" name="Teaser" type="longchar" hint="Teaser text." required="no" default="" />
+    <cfproperty 
+	name="teaserImage" type="uuid" ftType="uuid" hint="UUID of image to display in teaser" required="no" default=""
+	ftSeq="11" ftwizardStep="Teaser" ftFieldset="Teaser" ftLabel="Teaser Image"
+	ftJoin="dmImage" ftLibraryData="getTeaserImageLibraryData" ftLibraryDataTypename="dmHTML" />
+	
 	<cfproperty 
 	name="Body" type="longchar" hint="Main body of content." required="no" default="" 
 	ftSeq="12" ftwizardStep="Web Page" ftFieldset="Body" ftLabel="Body" 
