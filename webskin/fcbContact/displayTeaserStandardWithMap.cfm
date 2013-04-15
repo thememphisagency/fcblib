@@ -8,14 +8,9 @@
 <cfimport taglib="/farcry/plugins/fcblib/tags/fcb/ui" prefix="ui" />
 
 	<cfif NOT structKeyExists(request, 'googlemap') AND stobj.bShowMap>
-		<cfset googleAPIKey = createObject("component",application.types['googleMapAPIKeys'].packagepath).getAPIKey(CGI.HTTP_HOST)>
+		<cfset googleAPIKey = application.config.fcbWebsite.googleMapApiKey />
 		<cfoutput>
-			<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;key=#googleAPIKey#" type="text/javascript"></script>
-			<script type="text/javascript">
-				jQuery(document).ready(function (){
-					geocoder = new GClientGeocoder();							
-				});
-			</script>
+			<script src="http://maps.googleapis.com/maps/api/js?key=#googleAPIKey#&sensor=false"></script>
 		</cfoutput>
 		<cfset request.googlemap = 1 />
 	</cfif>
@@ -31,7 +26,7 @@
 	</cfif>
 
 	<cfif request.i EQ 1>
-		<cfset sClassName = 'contactFirst'>
+		<cfset sClassName = 'contact first'>
 	<cfelse>
 		<cfset sClassName = 'contact'>	
 	</cfif>
@@ -39,17 +34,17 @@
 	<cfset sObjectid = trim(replaceNoCase(stObj.objectid, '-', '', 'all')) />
 
 	<cfoutput>
-	<div class="#sClassName#">
-		<h3 id="p#sObjectid#">#stObj.label#</h3>
+	<div class="#sClassName# s#sObjectid#">
+		<h3>#stObj.label#</h3>
 		<cfif len(trim(stObj.subLabel)) GT 0>
 			<p class="subLabel"><strong>#stObj.subLabel#</strong></p>
 		</cfif>
-		<cfif len(sPostalAddress) GT 1>
-			<p><strong>Mail:</strong> #sPostalAddress#</p>
-		</cfif>		
 		<cfif len(sAddress) GT 1>
-			<p><strong>Add:</strong> #sAddress#</p>
+			<p class="address"><strong>Address:</strong> #sAddress#</p>
 		</cfif>
+		<cfif len(sPostalAddress) GT 1>
+			<p class="address"><strong>Mailing Address:</strong> #sPostalAddress#</p>
+		</cfif>		
 		<p class="contacts">
 			<cfif len(trim(stObj.phone)) GT 0>
 				<span>T</span>#stObj.phone# <br />
@@ -64,32 +59,24 @@
 		
 		<cfif len(sAddress) GT 0 AND stObj.bShowMap>
 			
-			<cfset sCallbackFunction = 's#sObjectid#_callback' />
-			<cfsavecontent variable="sMapDiv"><div id="s#sObjectid#_map" class="googlemap"><\/div></cfsavecontent>
+			<cfsavecontent variable="sMapDiv"><cfoutput><div id="s#sObjectid#_map" class="googlemap"><\/div></cfoutput></cfsavecontent>
 			
-			<script type="text/javascript">
-				
-				jQuery(document).ready(function (){
-					
-					jQuery('##p#sObjectid#').after('#trim(sMapDiv)#');
-					
- 					if (GBrowserIsCompatible()) {
-						geocoder.getLatLng("#sAddress#", 
-						function (point) {
-		 			    	var map = new GMap2(document.getElementById('s#sObjectid#_map'));					    	
-							if (!point) {
-								jQuery('##s#sObjectid#_map').hide();
-							} 
-							else {
-								map.setCenter(point, 16);
-								var marker = new GMarker(point);
-								map.addOverlay(marker);
-								map.addControl(new GSmallMapControl());		
-							}
-			    		});
-					}				
-				});
-			</script>
+			<script>
+				window.onload = function() {
+					$('.s#sObjectid#').append('#trim(sMapDiv)#');
+					var myLatlng = new google.maps.LatLng(#stObj.geoLat#,#stObj.geoLong#);
+					var myOptions = {
+						center: myLatlng,
+						zoom: 16,
+						mapTypeId: google.maps.MapTypeId.ROADMAP
+					};
+					var map = new google.maps.Map(document.getElementById('s#sObjectid#_map'), myOptions);	
+					var marker = new google.maps.Marker({
+						position: myLatlng
+					});
+					marker.setMap(map);
+				}
+			</script>	
 		
 		</cfif>
 				

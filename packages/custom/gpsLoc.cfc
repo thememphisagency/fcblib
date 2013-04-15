@@ -112,7 +112,7 @@
 				</style>
 			
 			<script src="http://maps.google.com/maps?file=api&amp;v=2.x&amp;key=" type="text/javascript"></script>
-			<script type="text/javascript" src="/js/K_CrossControl.js"></script>
+			<script type="text/javascript" src="/js/lib/K_CrossControl.js"></script>
 			
 			<script type="text/javascript">
 	  
