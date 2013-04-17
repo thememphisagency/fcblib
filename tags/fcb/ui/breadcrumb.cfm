@@ -28,26 +28,27 @@ in: - separator (shown between levels)
 out:
 --->
 <!--- import tag library --->
-<cfimport taglib="/farcry/plugins/fcblib/tags/fcb/ui" prefix="skin">
+<cfimport taglib="/farcry/core/tags/webskin" prefix="skin">
 
 <!--- allow developers to close custom tag by exiting on end --->
 <cfif thistag.ExecutionMode eq "end">
+	<cfsetting enablecfoutputonly="false" />
 	<cfexit method="exittag" />
 </cfif>
 
 <!--- optional attributes --->
-<cfparam name="attributes.separator" default=" &raquo; ">
-<cfparam name="attributes.here" default="">
+<cfparam name="attributes.separator" default=" &raquo; "><!--- @@attrhint: The separator for the steps in the bread crumb.  Can be a snippet of html (an image tag for example) --->
+<cfparam name="attributes.here" default=""><!--- @@attrhint: set the text for the last item in the breadcrumb --->
 <cfparam name="attributes.linkClass" default="">
 <cfif structKeyExists(request,"navid")>
-	<cfparam name="attributes.objectid" default="#request.navid#">
+	<cfparam name="attributes.objectid" default="#request.navid#"><!--- @@attrhint: This sets the starting point of the bread crumb tail.  This is the attribute you are looking for.  This must be a UUID of an element in the tree. To start this off, you can set an alias in the tree (for example 'mystuff') and then assign the alias uuid using something like application.navid['mystuff']. The default for this is request.navid --->
 </cfif>
 <cfparam name="attributes.startLevel" default="1">
 <cfparam name="attributes.prefix" default="">
 <cfparam name="attributes.suffix" default="">
-<cfparam name="attributes.includeSelf" default="0">
-<cfparam name="attributes.linkSelf" default="true">
-<cfparam name="attributes.homeNavID" default="#application.navid.home#">
+<cfparam name="attributes.includeSelf" default="0"><!--- @@attrhint: include the current item in the bread crumb trail --->
+<cfparam name="attributes.linkSelf" default="true"><!--- @@attrhint: should this item be a link in the bread crumb @@options: true,false --->
+<cfparam name="attributes.homeNavID" default="#application.navid.home#"><!--- @@attrhint: the objectId of the starting element of the breadcrumb. This UUID should be of one of the items in the navigation tree. For example, if you were to set an alias of a navigation you could set this value like: application.navid['myalias']. The default is application.navid.home.  --->
 
 <cfscript>
 // get navigation elements
@@ -75,8 +76,13 @@ out:
 	<!--- output breadcrumb --->
 	<cfset iCount = 1>
 	</cfsilent>
+
 	<cfloop query="qCrumb">
-		<cfoutput><skin:buildLink objectid="#qCrumb.objectid#" class="#attributes.linkClass#">#trim(qCrumb.objectName)#</skin:buildLink><cfif iCount neq qCrumb.recordCount>#attributes.separator#</cfif></cfoutput>
+		<cfset sClassName = '' />
+		<cfif qCrumb.currentRow EQ qCrumb.recordCount>
+			<cfset sClassName = ' parent' />
+		</cfif>
+		<cfoutput><skin:buildLink objectid="#qCrumb.objectid#" class="#attributes.linkClass##sClassName#" /><cfif iCount neq qCrumb.recordCount>#attributes.separator#</cfif></cfoutput>
 		<cfsilent><cfset iCount = iCount + 1></cfsilent>
 	</cfloop>
 	<cfif attributes.includeSelf>
@@ -92,7 +98,7 @@ out:
 	</cfif>
 <cfelse>
 	<!--- output home only --->
-	<cfoutput>#attributes.prefix# <a href="#application.url.webroot#/" class="#attributes.linkClass#">Home</a></cfoutput>
+	<cfoutput>#attributes.prefix# <skin:buildLink objectid="#application.navid.home#" class="#attributes.linkClass#" /></cfoutput>
 	<!--- #FC-611 if calling page is including itself, display page linked title --->
 	<cfif attributes.includeSelf>
 		<cfoutput>#attributes.separator#</cfoutput>
