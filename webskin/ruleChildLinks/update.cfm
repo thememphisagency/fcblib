@@ -63,6 +63,7 @@
 		
 			<div class="fieldAlign">	
 				<select name="parentID" id="parentID">	
+					<option value="">Use current page</value>
 				</cfoutput>
 		
 				<cfloop query="qSiteMap">

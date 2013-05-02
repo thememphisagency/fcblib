@@ -80,7 +80,7 @@ out:
 	<cfloop query="qCrumb">
 		<cfset sClassName = '' />
 		<cfif qCrumb.currentRow EQ qCrumb.recordCount>
-			<cfset sClassName = ' parent' />
+			<cfset sClassName = ' parent icon-left-open' />
 		</cfif>
 		<cfoutput><skin:buildLink objectid="#qCrumb.objectid#" class="#attributes.linkClass##sClassName#" /><cfif iCount neq qCrumb.recordCount>#attributes.separator#</cfif></cfoutput>
 		<cfsilent><cfset iCount = iCount + 1></cfsilent>

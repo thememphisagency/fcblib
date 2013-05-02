@@ -1,45 +1,32 @@
 <cfsetting enablecfoutputonly="true" />
-<!--- @@Copyright: Daemon Pty Limited 2002-2008, http://www.daemon.com.au --->
-<!--- @@License:
-    This file is part of FarCry CMS Plugin.
-
-    FarCry CMS Plugin is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    FarCry CMS Plugin is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with FarCry CMS Plugin.  If not, see <http://www.gnu.org/licenses/>.
---->
 <!--- @@displayname: Display page child links --->
 
 <cfimport taglib="/farcry/core/tags/webskin" prefix="skin" />
 
 <cfset oNav = CreateObject("component", application.stcoapi.dmNavigation.packagepath) /> 
 
-
 <!--- assumes existance of request.navid  --->
 <cfparam name="request.navid">
 
+<cfset sNav = stObj.refobjectid />
+
+<cfif len(stObj.refobjectid) IS 0>
+	<cfset sNav = request.navid />
+</cfif>
 
 <!--- get the children of this object --->
-<cfset qGetChildren = application.factory.oTree.getChildren(objectid=stObj.refobjectid) />
+<cfset qGetChildren = application.factory.oTree.getChildren(objectid=sNav) />
 
 <cfoutput>
 <div class="module">
 </cfoutput>
 
-	<cfif len(trim(stObj.label))>
+	<cfif len(trim(stObj.label)) AND stObj.label NEQ '(incomplete)'>
 		<cfoutput><h3 class="heading">#stObj.label#</h3></cfoutput>
 	</cfif>
 	
 	<cfoutput>
-		<div class="inner">
+		<div class="index">
 	</cfoutput>
 	
 	<cfif len(trim(stObj.intro))>
@@ -71,32 +58,38 @@
 		</cfquery>
 	
 		<cfif qNavPages.recordCount>
-			<!--- loop over child/sim link nav node --->	
 			<cfloop query="qNavPages">
-				<cfset o = createObject("component", application.stcoapi[qNavPages.typename].packagepath) />
-				<cfset stObjTemp = o.getData(objectid=qNavPages.data) />
+				<cfset stNavTemp = application.fapi.getContentObject(qNavPages.parentID) />
+				<cfif StructKeyExists(stNavTemp,"status") AND ListContains(request.mode.lValidStatus, stNavTemp.status)>
+					<cfset stObjTemp = application.fapi.getContentObject(objectid=qNavPages.data) />
 				
-				<!--- request.lValidStatus is approved, or draft, pending, approved in SHOWDRAFT mode --->
-				<cfif StructKeyExists(stObjTemp,"status") AND ListContains(request.mode.lValidStatus, stObjTemp.status) AND StructKeyExists(stObjTemp,"displayMethod")>
+					<cfif NOT structIsEmpty(stObjTemp)>
+						<!--- request.lValidStatus is approved, or draft, pending, approved in SHOWDRAFT mode --->
+						<cfif (StructKeyExists(stObjTemp,"status") AND ListContains(request.mode.lValidStatus, stObjTemp.status) OR NOT StructKeyExists(stObjTemp,"status")) >
 				
-					<!--- if in draft mode grab underlying draft page --->			
-					<cfif IsDefined("stObjTemp.versionID") AND request.mode.showdraft>
-						<cfquery datasource="#application.dsn#" name="qHasDraft">
-							SELECT objectID,status from #application.dbowner##stObjTemp.typename# where versionID = '#stObjTemp.objectID#' 
-						</cfquery>
+							<!--- if in draft mode grab underlying draft page --->			
+							<cfif IsDefined("stObjTemp.versionID") AND request.mode.showdraft>
+								<cfquery datasource="#application.dsn#" name="qHasDraft">
+									SELECT objectID,status from #application.dbowner##stObjTemp.typename# where versionID = '#stObjTemp.objectID#' 
+								</cfquery>
 						
-						<cfif qHasDraft.recordcount gt 0>
-							<cfset stObjTemp = o.getData(objectid=qHasDraft.objectid) />
+								<cfif qHasDraft.recordcount gt 0>
+									<cfset stObjTemp = application.fapi.getContentObject(objectid=qHasDraft.objectid) />
+								</cfif>
+							</cfif>
+
+							<skin:view objectid="#stObjTemp.objectid#" webskin="#stObj.displaymethod#" alternatehtml="<!-- #stObj.displaymethod# does not exist for #stObjTemp.typename# -->" />
+
+							<cfbreak>
 						</cfif>
+					<cfelse>
+						<!--- structure is blank; ie tree reference is borked --->
+						<skin:bubble title="site tree error" message="#qNavPages.data# not in tree" sticky="true" />
 					</cfif>
-					
-					<skin:view objectid="#stObjTemp.objectid#" webskin="#stObj.displaymethod#" />
-	
-					<cfbreak>
 				</cfif>
 			</cfloop>
 		<cfelse>
-			<skin:view objectid="#stCurrentNav.objectid#" webskin="#stObj.displaymethod#" alternateHTML="" />
+			<skin:view objectid="#stCurrentNav.objectid#" webskin="#stObj.displaymethod#" alternateHTML="<!-- #stObj.displaymethod# does not exist for #stObjTemp.typename# -->" />
 		</cfif>
 		
 	</cfloop>
