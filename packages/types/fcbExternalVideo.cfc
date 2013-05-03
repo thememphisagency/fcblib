@@ -1,6 +1,6 @@
-<cfcomponent extends="farcry.core.packages.types.types" displayname="External Video URL" hint="Provide access to external video such as youtube and veoh" bObjectBroker="true">
+<cfcomponent extends="farcry.plugins.fcblib.packages.types.fcbType" displayname="External Video URL" hint="Provide access to external video such as youtube and veoh" bObjectBroker="true">
 
-	<cfproperty ftseq="1" ftFieldset="Link Information" name="title" type="string" hint="Meaningful reference title for link" required="no" default="" ftlabel="Title" blabel="true" ftvalidation="required" />
+	<cfproperty ftseq="1" ftFieldset="Link Information" name="title" bCleanHTML="1" type="string" hint="Meaningful reference title for link" required="no" default="" ftlabel="Title" blabel="true" ftvalidation="required" />
 	<cfproperty ftseq="2" ftfieldset="Link Information" name="link" type="string" hint="URL of Video" required="no" default="" ftlabel="Link" ftvalidation="required" />
 	<cfproperty ftseq="3" ftfieldset="Link Information" name="videoType" type="string" hint="Type of video" required="no" default="" ftlabel="Video Type" fttype="list" ftlist="youtube:Youtube" ftSelectMultiple="false" trendertype="dropdown" />
 
