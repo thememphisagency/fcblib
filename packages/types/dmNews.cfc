@@ -1,16 +1,28 @@
 <cfcomponent extends="farcry.plugins.farcrycms.packages.types.dmNews" displayname="News" bSchedule="true" bFriendly="true" bObjectBroker="true" bRotator="1" bPaginatorSearchByCategory="1" bPaginatorAnimateByTypeRule="1">
 
-	<cfproperty ftseq="1" ftfieldset="General Details" bCleanHTML="1" ftwizardStep="General Details" name="title" type="string" hint="News title." required="no" default="" ftlabel="Title" ftvalidation="required" />
-	<cfproperty ftseq="2" ftfieldset="General Details" bCleanHTML="1" ftwizardStep="General Details" name="source" type="string" hint="source of the information contained in the content" required="no" default="" ftlabel="Source" />
-	<cfproperty ftSeq="7" ftwizardStep="General Details" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
+	<cfproperty ftseq="1" ftfieldset="General Details" bCleanHTML="1" ftwizardStep="General Details" name="title" type="string" ftType="string" hint="News title." required="no" default="" ftlabel="Title" ftvalidation="required" />
+	<cfproperty ftseq="2" ftfieldset="General Details" bCleanHTML="1" ftwizardStep="General Details" name="source" type="string" ftType="string" hint="source of the information contained in the content" required="no" default="" ftlabel="Source" />
+	<cfproperty ftSeq="7" ftwizardStep="General Details" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" ftType="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
+
+	<!--- Overwrite the default value for ftDisplauPrettyDate to true so the date is rendered as normal date instead of '3 days ago' etc --->
+	<cfproperty 
+		name="publishDate" type="date" hint="The date that a news object is sent live and appears on the public website" required="no" default="" 
+		ftseq="11" ftfieldset="Publishing Details" ftwizardStep="General Details" ftlabel="Publish Date"
+		ftType="datetime" ftDefaultType="Evaluate" ftDefault="now()" ftDateFormatMask="dd mmm yyyy" ftTimeFormatMask="hh:mm tt" ftToggleOffDateTime="false" ftDisplayPrettyDate="false" />
+		
+	<cfproperty 
+		name="expiryDate" type="date" hint="The date that a news object is removed from the web site" required="no" default="" 
+		ftseq="12" ftfieldset="Publishing Details" ftwizardStep="General Details" ftlabel="Expiry Date" 
+		ftType="datetime" ftDefaultType="Evaluate" ftDefault="DateAdd('yyyy', 200, now())" ftDateFormatMask="dd mmm yyyy" ftTimeFormatMask="hh:mm tt" ftToggleOffDateTime="true" ftDisplayPrettyDate="false" />
+
 	
-	<cfproperty ftseq="32" ftfieldset="Story Teaser" bCleanHTML="1" ftwizardStep="News Body" name="Teaser" type="longchar" hint="Teaser text." required="no" default="" ftlabel="Story Teaser" />
+	<cfproperty ftseq="32" ftfieldset="Story Teaser" bCleanHTML="1" ftwizardStep="News Body" name="Teaser" type="longchar" ftType="longchar" hint="Teaser text." required="no" default="" ftlabel="Story Teaser" />
 
 	<!--- Overwrite default property to correct the typename casing --->
 	<cfproperty ftseq="21" ftfieldset="News Story" ftwizardStep="News Body" name="Body" type="longchar" hint="Main body of content." required="no" default="" ftType="RichText" ftlabel="Body Content"
 	  ftImageArrayField="aObjectIDs" ftImageTypename="dmImage" ftImageField="StandardImage" ftTemplateTypeList="dmImage,dmFile,dmFlash,dmNavigation,dmHTML" ftTemplateWebskinPrefixList="insertHTML" />
 
-	<cfproperty ftseq="41" ftfieldset="Related Content" ftwizardStep="News Body" name="aObjectIds" type="array" hint="Mixed media content for this content." required="no" default="" ftJoin="dmImage,dmFile,dmFlash" ftlabel="Media Library" bSyncStatus="true"  ftJoinAllowDuplicates="false" />
+	<cfproperty ftseq="41" ftfieldset="Related Content" ftwizardStep="News Body" name="aObjectIds" type="array" ftType="array" hint="Mixed media content for this content." required="no" default="" ftJoin="dmImage,dmFile,dmFlash" ftlabel="Media Library" bSyncStatus="true"  ftJoinAllowDuplicates="false" />
 
 	<cfimport taglib="/farcry/core/tags/formtools/" prefix="ft" />
 	<cfimport taglib="/farcry/core/tags/wizard/" prefix="wiz" />

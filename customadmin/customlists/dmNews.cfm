@@ -15,27 +15,27 @@
     You should have received a copy of the GNU Lesser General Public License
     along with FarCry CMS Plugin.  If not, see <http://www.gnu.org/licenses/>.
 --->
-
-<cfimport taglib="/farcry/core/tags/admin/" prefix="admin">
+<cfimport taglib="/farcry/core/tags/admin" prefix="admin" />
 <cfimport taglib="/farcry/core/tags/formtools" prefix="ft" />
 
 <!--- Override the client side validation for the filter fields. --->
 <cfset stFilterMetaData = structNew() />
 <cfset stFilterMetaData.title.ftValidation = "" />
-<cfset stFilterMetaData.link.ftValidation = "" />
 
 <!--- set up page header --->
-<admin:header title="Testimonial Admin" writingDir="#session.writingDir#" userLanguage="#session.userLanguage#" />
+<admin:header title="News" />
 
 <ft:objectadmin 
-	typename="fcbTestimonial"
-	plugin="fcbLib"
-	title="Testimonials"
-	permissionset="testimonial"
-	columnList="label,catFacts,datetimelastUpdated,lastupdatedby"
-	sortableColumns="label,datetimelastUpdated,lastupdatedby"
-	lFilterFields="label"
+	typename="dmNews"
+	permissionset="news"
+	title="#application.rb.getResource('newsAdministration', 'News Administration')#"
+	columnList="title,catnews,publishdate,expiryDate,datetimelastUpdated"
+	sortableColumns="title,publishdate,expiryDate,datetimelastUpdated"
+	lFilterFields="title,source"
 	stFilterMetaData="#stFilterMetaData#"
-	sqlorderby="datetimelastUpdated desc" />
+	sqlorderby="publishdate desc"
+	plugin="farcrycms"
+	module="/dmNews.cfm" />
 
+<!--- setup footer --->
 <admin:footer />

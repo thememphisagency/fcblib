@@ -16,26 +16,26 @@
     along with FarCry CMS Plugin.  If not, see <http://www.gnu.org/licenses/>.
 --->
 
-<cfimport taglib="/farcry/core/tags/admin/" prefix="admin">
+<cfimport taglib="/farcry/core/tags/admin/" prefix="admin" />
 <cfimport taglib="/farcry/core/tags/formtools" prefix="ft" />
 
 <!--- Override the client side validation for the filter fields. --->
 <cfset stFilterMetaData = structNew() />
 <cfset stFilterMetaData.title.ftValidation = "" />
-<cfset stFilterMetaData.link.ftValidation = "" />
 
 <!--- set up page header --->
-<admin:header title="Testimonial Admin" writingDir="#session.writingDir#" userLanguage="#session.userLanguage#" />
+<admin:header title="Event Admin" />
 
 <ft:objectadmin 
-	typename="fcbTestimonial"
-	plugin="fcbLib"
-	title="Testimonials"
-	permissionset="testimonial"
-	columnList="label,catFacts,datetimelastUpdated,lastupdatedby"
-	sortableColumns="label,datetimelastUpdated,lastupdatedby"
-	lFilterFields="label"
+	typename="dmEvent"
+	permissionset="event"
+	title="#application.rb.getResource('eventsAdministration', 'Events Administration')#"
+	columnList="title,startDate,endDate,publishdate,expiryDate,catevent,datetimelastUpdated"
+	sortableColumns="title,startDate,publishdate,expiryDate,datetimelastUpdated"
+	lFilterFields="title"
 	stFilterMetaData="#stFilterMetaData#"
-	sqlorderby="datetimelastUpdated desc" />
+	sqlorderby="startDate desc"
+	plugin="farcrycms"
+	module="/dmEvent.cfm" />
 
 <admin:footer />

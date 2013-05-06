@@ -17,8 +17,15 @@
 	</cfif>
 	
 	<cfset request.iRuleTotalItems = arrayLen(stobj.aPickedObjects) />
+	<cfset iTotal = arrayLen(stobj.aPickedObjects) />
+
+	<cfif stObj.bRandom>
+		<!--- randomise value in array --->
+		<cfset CreateObject("java","java.util.Collections").Shuffle(stobj.aPickedObjects) />
+		<cfset iTotal = 1 />
+	</cfif>
 	
-	<cfloop from="1" to="#arrayLen(stobj.aPickedObjects)#" index="i">
+	<cfloop from="1" to="#iTotal#" index="i">
 		<cfset request.i = i />		
 		<skin:view objectID="#stobj.aPickedObjects[i].data#" typename="#stobj.aPickedObjects[i].typename#" webskin="#stobj.aPickedObjects[i].webskin#" alternateHTML="<p>WEBSKIN NOT AVAILABLE</p>" />
 	</cfloop>

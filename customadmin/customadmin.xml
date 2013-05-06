@@ -2,26 +2,33 @@
 <!-- Sample webtop XML config; remove comments to activate -->
 <webtop>
 
-<section mergeType="merge" id="content">
-	<subsection id="farcrycmssubsection" mergeType="merge" sequence="5" label="CMS Content">
-		<menu id="farcrycmsmenu" mergeType="merge" sequence="10" label="Content Types">
-			<menuitem id="listfcbTestimonial" sequence="20" label="Testimonials" link="/admin/customadmin.cfm?module=customlists/fcbTestimonial.cfm&amp;plugin=fcblib" relatedtype="fcbTestimonial" />
-			<menuitem id="listfcbContact" sequence="22" label="Contacts" link="/admin/customadmin.cfm?module=customlists/fcbContact.cfm&amp;plugin=fcblib" relatedtype="fcbContact" />
-			<menuitem id="listExternalVideo" sequence="29" label="External Video" link="/admin/customadmin.cfm?module=/customlists/fcbExternalVideo.cfm&amp;plugin=fcbLib" icon="dmarchive" description="" />
-		</menu>
-	</subsection>
-	<subsection id="contentpublishing" mergeType="merge" sequence="10" label="Content Publishing">
-		<menu id="MediaLibraryContent" mergeType="merge" sequence="20" label="Media Assets">
-			<menuitem id="listfcbVideo" sequence="30" label="Video Library" link="/admin/customadmin.cfm?module=customlists/fcbVideo.cfm&amp;plugin=fcblib" relatedtype="fcbVideo" />
-		</menu>
-	</subsection>	
-</section>
-
-<section id="admin">		
-		<subsection id="coapi" mergeType="merge" label="Developer Utilities">
-		<menu id="logs" label="Logs">
-			<menuitem id="listfcbMailLog" label="Mail Log" link="/admin/customadmin.cfm?module=customlists/fcbMailLog.cfm&amp;plugin=fcblib"/>		
-	</menu>
+	<section mergeType="merge" id="content">
+		<subsection id="farcrycmssubsection" mergeType="merge" sequence="5" label="CMS Content">
+			<menu id="farcrycmsmenu" mergeType="merge" sequence="10" label="Content Types">
+				<menuitem id="listdmnews" sequence="10" label="News" link="/admin/customadmin.cfm?plugin=fcblib&amp;module=customlists/dmNews.cfm" relatedtype="dmnews" />
+					<menuitem id="listdmevent" sequence="20" label="Events" link="/admin/customadmin.cfm?plugin=fcblib&amp;module=customlists/dmEvent.cfm" relatedtype="dmevent" />
+				<menuitem id="listfcbTestimonial" sequence="20" label="Testimonials" link="/admin/customadmin.cfm?module=customlists/fcbTestimonial.cfm&amp;plugin=fcblib" relatedtype="fcbTestimonial" />
+				<menuitem id="listfcbContact" sequence="22" label="Contacts" link="/admin/customadmin.cfm?module=customlists/fcbContact.cfm&amp;plugin=fcblib" relatedtype="fcbContact" />
+				<menuitem id="listExternalVideo" sequence="29" label="External Video" link="/admin/customadmin.cfm?module=/customlists/fcbExternalVideo.cfm&amp;plugin=fcbLib" icon="dmarchive" description="" />
+			</menu>
 		</subsection>
-</section>
+		<subsection id="contentpublishing" mergeType="merge" sequence="10" label="Content Publishing">
+			<menu id="MediaLibraryContent" mergeType="merge" sequence="20" label="Media Assets">
+				<menuitem id="listfcbVideo" sequence="30" label="Video Library" link="/admin/customadmin.cfm?module=customlists/fcbVideo.cfm&amp;plugin=fcblib" relatedtype="fcbVideo" />
+			</menu>
+		</subsection>	
+	</section>
+
+	<section id="admin">		
+		<subsection id="coapi" mergeType="merge" label="Developer Utilities">
+			<menu id="logs" label="Logs">
+				<menuitem id="listfcbMailLog" label="Mail Log" link="/admin/customadmin.cfm?module=customlists/fcbMailLog.cfm&amp;plugin=fcblib"/>		
+			</menu>
+			<menu id="diagnostics" mergeType="merge"  label="Diagnostics">
+				<menuitem label="Tree Inspector" link="/admin/customadmin.cfm?plugin=fcblib&amp;module=utilities/treeInspector.cfm" />
+				<menuitem label="Fix Table Casing" link="/admin/customadmin.cfm?plugin=fcblib&amp;module=utilities/fixCasing.cfm" />
+				<menuitem label="Revision Export" link="/admin/customadmin.cfm?plugin=fcblib&amp;module=utilities/revisionExport.cfm" />
+			</menu>			
+		</subsection>	
+	</section>
 </webtop>

@@ -1,41 +1,12 @@
-<!--- @@Copyright: Daemon Pty Limited 2002-2008, http://www.daemon.com.au --->
-<!--- @@License:
-    This file is part of FarCry CMS Plugin.
-
-    FarCry CMS Plugin is free software: you can redistribute it and/or modify
-    it under the terms of the GNU Lesser General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.
-
-    FarCry CMS Plugin is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU Lesser General Public License for more details.
-
-    You should have received a copy of the GNU Lesser General Public License
-    along with FarCry CMS Plugin.  If not, see <http://www.gnu.org/licenses/>.
---->
-
-
-<!--- 
-|| DESCRIPTION || 
-$Description: 
-Hand-pick and display individual content items with a specified displayTeaser* handler. 
-Restricted to those content types listed in the ftJoin attribute of aObjects.
-$
-
-|| DEVELOPER ||
-$Developer: Mat Bryant (m.bryant@daemon.com.au) $
---->
 <cfcomponent displayname="Utility: Handpicked Rule" extends="farcry.core.packages.rules.rules" 
 	hint="Hand-pick and display individual content items with a specified displayTeaser* handler.">
 
-	<cfproperty ftSeq="1" ftFieldSet="Intro" name="intro" type="longchar" hint="Intro text placed in front of the handpicked rule results.  Can be any relevant content and HTML markup." ftLabel="Introduction" />
-	<cfproperty ftSeq="2" ftFieldSet="Selected Objects" name="aPickedObjects" type="array" ftJoin="dmEvent,dmFacts,dmFlash,dmFile,dmImage,dmInclude,dmLink,dmNews,dmHTML" arrayProps="webskin:string" ftLabel="Select Objects" />
+	<cfproperty ftSeq="1" ftFieldSet="Intro" name="intro" type="longchar" ftType="longchar" hint="Intro text placed in front of the handpicked rule results.  Can be any relevant content and HTML markup." ftLabel="Introduction" />
+	<cfproperty ftSeq="2" ftFieldSet="Selected Objects" name="aPickedObjects" type="array" ftType="array" ftJoin="dmEvent,dmFacts,dmFlash,dmFile,dmImage,dmInclude,dmLink,dmNews,dmHTML" arrayProps="webskin:string" ftLabel="Select Objects" />
 	<cfproperty ftSeq="3" ftFieldset="Rule Details" name="executeDisplay" type="string" hint="Display of rule content" required="true" default="displayExecuteDefault" ftType="webskin" fttypename="ruleHandpicked" ftprefix="displayExecute" ftLabel="Display Method" ftHint="This determines how each of your rule content will render." />
+	<!--- New property to randomise selected objects if enable --->
+	<cfproperty ftSeq="4" ftFieldSet="Rule Details" name="bRandom" type="boolean" ftType="boolean" ftLabel="Randomised display?" ftHint="Enable this setting will display one object per page view in a randomised order." />
 	
-
-
 	<cffunction name="ftEditAPickedObjects" access="public" output="false" returntype="string" hint="This is going to called from ft:object and will always be passed 'typename,stobj,stMetadata,fieldname'.">
 		<cfargument name="typename" required="true" type="string" hint="The name of the type that this field is part of.">
 		<cfargument name="stObject" required="true" type="struct" hint="The object of the record that this field is part of.">

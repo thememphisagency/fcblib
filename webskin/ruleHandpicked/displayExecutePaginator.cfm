@@ -1,4 +1,4 @@
-<!--- @@displayname: Content with Paginator --->
+<!--- @@displayname: Content with Paginator (no random order) --->
 
 <cfimport taglib="/farcry/core/tags/webskin" prefix="skin" />
 <cfimport taglib="/farcry/plugins/fcblib/tags/fcb/ui" prefix="ui" />

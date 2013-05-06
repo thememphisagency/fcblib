@@ -24,12 +24,19 @@ $Developer: Geoff Bowers (modius@daemon.com.au) $
 --->
 <cfcomponent extends="farcry.plugins.farcrycms.packages.types.dmEvent" displayname="Events" hint="Calendar events happen at a given place and time. Events can be published in list and month calendar formats." bSchedule="true" bFriendly="true" bObjectBroker="true" bRotator="1" bPaginatorSearchByCategory="1" bPaginatorAnimateByTypeRule="1">
 
-	<cfproperty ftseq="1" ftfieldset="Event Overview" bCleanHTML="1" ftwizardStep="General Details" name="title" type="string" hint="Title of object." required="no" default="" ftLabel="Title" ftvalidation="required" />
-	<cfproperty ftseq="4" ftfieldset="Event Overview" bCleanHTML="1" ftwizardStep="General Details" name="Location" type="string" hint="Location of event" required="no" default="" fttype="longchar" ftLabel="Location" />
-	<cfproperty ftseq="42" ftfieldset="Event Teaser" bCleanHTML="1" ftwizardStep="Event Details" name="teaser" type="longchar" hint="Teaser text." required="no" default="" ftLabel="Teaser Text" />
-	<cfproperty ftSeq="7" ftwizardStep="General Details" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
+	<cfproperty ftseq="1" ftfieldset="Event Overview" bCleanHTML="1" ftwizardStep="General Details" name="title" type="string" ftType="string" hint="Title of object." required="no" default="" ftLabel="Title" ftvalidation="required" />
+	<cfproperty ftseq="4" ftfieldset="Event Overview" bCleanHTML="1" ftwizardStep="General Details" name="Location" type="string" hint="Location of event" required="no" default="" ftType="string" ftLabel="Location" />
+
+	<!--- Overwrite the default value for ftDisplauPrettyDate to true so the date is rendered as normal date instead of '3 days ago' etc --->
+	<cfproperty ftseq="2" ftfieldset="Event Overview" ftwizardStep="General Details" name="startDate" type="date" hint="The start date of the event" required="no" default=""ftDefaultType="Evaluate" ftDefault="now()" ftType="datetime" ftDateFormatMask="dd mmm yyyy" ftTimeFormatMask="hh:mm tt" ftToggleOffDateTime="false" ftlabel="Start Date" ftDisplayPrettyDate="false" />
+	<cfproperty ftseq="3" ftfieldset="Event Overview" ftwizardStep="General Details" name="endDate" type="date" hint="The end date of the event" required="no" default=""ftDefaultType="Evaluate" ftDefault="DateAdd('d', 5, now())" ftType="datetime" ftDateFormatMask="dd mmm yyyy" ftTimeFormatMask="hh:mm tt" ftToggleOffDateTime="false" ftlabel="End Date" ftDisplayPrettyDate="false" />
+	<cfproperty ftseq="21" ftfieldset="Publishing Details" ftwizardStep="General Details" name="publishDate" type="date" hint="The date that a event object is sent live and appears on the public website" required="no" default=""ftDefaultType="Evaluate" ftDefault="now()" ftType="datetime" ftDateFormatMask="dd mmm yyyy" ftTimeFormatMask="hh:mm tt" ftToggleOffDateTime="false" ftlabel="Publish Date" ftDisplayPrettyDate="false" />
+	<cfproperty ftseq="22" ftfieldset="Publishing Details" ftwizardStep="General Details" name="expiryDate" type="date" hint="The date that a event object is removed from the web site" required="no" default=""ftDefaultType="Evaluate" ftDefault="DateAdd('d', 5, now())" ftType="datetime" ftDateFormatMask="dd mmm yyyy" ftTimeFormatMask="hh:mm tt" ftToggleOffDateTime="true" ftlabel="Expiry Date" ftDisplayPrettyDate="false" />
+
+	<cfproperty ftseq="42" ftfieldset="Event Teaser" bCleanHTML="1" ftwizardStep="Event Details" name="teaser" type="longchar" ftType="longchar" hint="Teaser text." required="no" default="" ftLabel="Teaser Text" />
+	<cfproperty ftSeq="7" ftwizardStep="General Details" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" ftType="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
 	<!--- Overwrite default property to correct the typename casing --->
-	<cfproperty ftseq="51" ftfieldset="Related Content" ftwizardStep="Event Details" name="aObjectIDs" type="array" hint="Mixed type children objects that sit underneath this object" required="no" default="" ftJoin="dmImage,dmFile,dmFlash" ftlabel="Media Library" bSyncStatus="true" />
+	<cfproperty ftseq="51" ftfieldset="Related Content" ftwizardStep="Event Details" name="aObjectIDs" type="array" ftType="array" hint="Mixed type children objects that sit underneath this object" required="no" default="" ftJoin="dmImage,dmFile,dmFlash" ftlabel="Media Library" bSyncStatus="true" />
 
 	<cfimport taglib="/farcry/core/tags/formtools/" prefix="ft" />
 	<cfimport taglib="/farcry/core/tags/wizard/" prefix="wiz" />
