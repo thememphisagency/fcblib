@@ -250,7 +250,7 @@
 					} else {
 					    writeOutput("><a href="""&href&""">"&trim(qNav.ObjectName[i]));
 					    if(qNav.nLevel[i] lt attributes.startlevel+attributes.depth - 1  and qNav.nRight[i]-qNav.nleft[i] neq 1) {
-					    	 writeOutput(" <span class=""indicator"">&##187;</span>");
+					    	 writeOutput(" <i class='indicator icon-angle-right'></i>");
 					    }
 					    writeOutput("</a>");
 					}
