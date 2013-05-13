@@ -330,7 +330,7 @@
 		<cfargument name="searchCriteria" type="string" hint="use object id as unique search criteria">
 		
 		<cfset var collectionName = application.path.project & "/collections"> 
-		<cfset var results = queryNew("title,objectid,typename,score,bSensitive")>
+		<cfset var results = queryNew("title,objectid,typename,score,bSensitive", "cf_sql_varchar,cf_sql_varchar,cf_sql_varchar,cf_sql_double,cf_sql_bit")>
 		<cfset var aColumnsToSearch = ArrayNew(1) />
 
 		<!--- Grab a list of all available typename--->

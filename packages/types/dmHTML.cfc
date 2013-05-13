@@ -1,9 +1,10 @@
 <cfcomponent extends="farcry.core.packages.types.dmHTML" displayname="HTML" bUseInTree="1" bSchedule="true" bFriendly="true" bObjectBroker="true" bRotator="1" bPaginatorSearchByCategory="1" bPaginatorAnimateByTypeRule="1">
 
-	<cfproperty ftSeq="1" ftwizardStep="Start" bCleanHTML="1" ftFieldset="General Details" name="Title" type="nstring" hint="Title of object.  *perhaps this should be deprecated for object label*" required="no" default="" ftValidation="required">
-	<cfproperty ftSeq="5" ftwizardStep="Start" bCleanHTML="1" ftFieldset="Metadata" name="metaKeywords" type="nstring" hint="HTML head section metakeywords." required="no" default="" ftLabel="Meta Keywords">
-	<cfproperty ftSeq="7" ftwizardStep="Start" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
-	<cfproperty ftSeq="10" ftwizardStep="Teaser" bCleanHTML="1" ftFieldset="Teaser" name="Teaser" type="longchar" hint="Teaser text." required="no" default="" />
+	<cfproperty ftSeq="1" ftwizardStep="Start" bCleanHTML="1" ftFieldset="General Details" name="Title" type="string" fttype="string" hint="Title of object.  *perhaps this should be deprecated for object label*" required="no" default="" ftValidation="required">
+	<cfproperty ftSeq="5" ftwizardStep="Start" bCleanHTML="1" ftFieldset="Metadata" name="metaKeywords" type="string" fttype="string" hint="HTML head section metakeywords." required="no" default="" ftLabel="Meta Keywords">
+	<cfproperty ftSeq="7" ftwizardStep="Start" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" fttype="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
+	<cfproperty ftSeq="10" ftwizardStep="Teaser" bCleanHTML="1" ftFieldset="Teaser" name="Teaser" type="longchar" fttype="longchar" hint="Teaser text." required="no" default="" />
+    
     <cfproperty 
 	name="teaserImage" type="uuid" ftType="uuid" hint="UUID of image to display in teaser" required="no" default=""
 	ftSeq="11" ftwizardStep="Teaser" ftFieldset="Teaser" ftLabel="Teaser Image"
