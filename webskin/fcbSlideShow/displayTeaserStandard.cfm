@@ -42,7 +42,7 @@
 			 	Galleria.loadTheme('#application.url.webroot#/js/lib/galleria/themes/dots/galleria.dots.js', r);
 			    Galleria.run('.banner',
 			    {
-			    	autoplay: false,
+
 			    	responsive:true,
 			    	lightbox: false,
 			    	showInfo: false,
