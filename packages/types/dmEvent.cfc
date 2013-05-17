@@ -34,6 +34,9 @@ $Developer: Geoff Bowers (modius@daemon.com.au) $
 	<cfproperty ftseq="22" ftfieldset="Publishing Details" ftwizardStep="General Details" name="expiryDate" type="date" hint="The date that a event object is removed from the web site" required="no" default=""ftDefaultType="Evaluate" ftDefault="DateAdd('d', 5, now())" ftType="datetime" ftDateFormatMask="dd mmm yyyy" ftTimeFormatMask="hh:mm tt" ftToggleOffDateTime="true" ftlabel="Expiry Date" ftDisplayPrettyDate="false" />
 
 	<cfproperty ftseq="42" ftfieldset="Event Teaser" bCleanHTML="1" ftwizardStep="Event Details" name="teaser" type="longchar" ftType="longchar" hint="Teaser text." required="no" default="" ftLabel="Teaser Text" />
+	<cfproperty ftSeq="43" ftwizardStep="Event Details" ftFieldset="Event Teaser" name="readMoreText" ftlabel="Read More Text" type="nstring" hint="Display text for read more link for object teasers" required="no" default="Read more">
+
+
 	<cfproperty ftSeq="7" ftwizardStep="General Details" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" ftType="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
 	<!--- Overwrite default property to correct the typename casing --->
 	<cfproperty ftseq="51" ftfieldset="Related Content" ftwizardStep="Event Details" name="aObjectIDs" type="array" ftType="array" hint="Mixed type children objects that sit underneath this object" required="no" default="" ftJoin="dmImage,dmFile,dmFlash" ftlabel="Media Library" bSyncStatus="true" />

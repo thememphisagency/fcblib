@@ -17,6 +17,7 @@
 
 	
 	<cfproperty ftseq="32" ftfieldset="Story Teaser" bCleanHTML="1" ftwizardStep="News Body" name="Teaser" type="longchar" ftType="longchar" hint="Teaser text." required="no" default="" ftlabel="Story Teaser" />
+	<cfproperty ftSeq="33" ftwizardStep="News Body" ftFieldset="Story Teaser" name="readMoreText" ftlabel="Read More Text" type="nstring" hint="Display text for read more link for object teasers" required="no" default="Read more">
 
 	<!--- Overwrite default property to correct the typename casing --->
 	<cfproperty ftseq="21" ftfieldset="News Story" ftwizardStep="News Body" name="Body" type="longchar" hint="Main body of content." required="no" default="" ftType="RichText" ftlabel="Body Content"

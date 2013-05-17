@@ -5,6 +5,8 @@
 	<cfproperty ftSeq="7" ftwizardStep="Start" ftfieldset="Sensitive Data?" ftLabel="Sensitive" name="bSensitive" type="boolean" fttype="boolean" hint="" required="no" default="0" ftRenderType="checkbox" />
 	<cfproperty ftSeq="10" ftwizardStep="Teaser" bCleanHTML="1" ftFieldset="Teaser" name="Teaser" type="longchar" fttype="longchar" hint="Teaser text." required="no" default="" />
     
+	<cfproperty ftSeq="6" ftwizardStep="Teaser" ftFieldset="Teaser" name="readMoreText" ftlabel="Read More Text" type="nstring" hint="Display text for read more link for object teasers" required="no" default="Read more">
+
     <cfproperty 
 	name="teaserImage" type="uuid" ftType="uuid" hint="UUID of image to display in teaser" required="no" default=""
 	ftSeq="11" ftwizardStep="Teaser" ftFieldset="Teaser" ftLabel="Teaser Image"
