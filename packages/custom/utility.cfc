@@ -278,6 +278,7 @@
 		<cfargument name="urlHasParam" required="false" type="boolean" default="0">
 		<cfargument name="anchor" required="false" type="string" default="" />
 		<cfargument name="labels" required="false" type="struct" default="#{prev="&##60;&##60;",next="&##62;&##62;"}#" />
+		<cfargument name="enableAjax" required="false" type="boolean" default="0">
 
 		<cfset var maxPaging = totalRecs />			
 		<cfset var pagingHTML = "">
@@ -333,7 +334,7 @@
 
 			<cfsavecontent variable="pagingHTML">
 
-				<cfoutput><ul class="pagination"></cfoutput>
+				<cfoutput><ul class="pagination <cfif arguments.enableAjax EQ 1>ajaxPagination</cfif>"></cfoutput>
 
 				<cfif currentPage EQ 1>
 					<!--- If this is first page, pagination formation would be (1),2,3 (if there are 3 or more pages) --->
