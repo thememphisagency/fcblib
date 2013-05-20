@@ -15,10 +15,6 @@ function paginationClick(link) {
 		case 'ajaxSearchPaginator':
 		searchPagination(link);
 		break;
-		case 'ajaxPlantEquipmentPhotosPaginator':
-		case 'ajaxPlantEquipmentServicesPaginator':
-		plantEquipmentPagination(link);
-		break;
 	}	
 }
 
@@ -73,6 +69,10 @@ function ajaxCall(url, container) {
 	  }
 	 
 	});	
+}
+
+function ajaxCallback(type) {
+	// Handle callbacks here
 }
 
 function searchByHash() {
