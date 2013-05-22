@@ -186,7 +186,7 @@
 				itemclass='';
 				
 				if(qNav.nLevel[i] lt attributes.startlevel+attributes.depth - 1  and qNav.nRight[i]-qNav.nleft[i] neq 1 AND qNav.nLevel[i+1] GT qNav.nLevel[i]) {
-					itemclass=itemclass & 'parent';	
+					itemclass=itemclass & 'parent ';	
 				}
 				
 
