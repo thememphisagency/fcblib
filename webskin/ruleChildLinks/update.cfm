@@ -30,7 +30,7 @@
 
 	<!--- Save any Types submitted (including any new ones) --->
 	<wiz:processWizardObjects typename="ruleChildLinks" />
-	
+
 </wiz:processwizard>
 
 
@@ -39,7 +39,7 @@
 	<cfset stProperties = stWizard.data[stobj.objectid] />
 	<cfset structDelete(stProperties, "aObjects") />
 	<cfset stProperties.refobjectid = form.parentID />
-	
+
 	<cfset stResult = setData(stProperties=stProperties) />
 </wiz:processWizard>
 
@@ -50,35 +50,35 @@
 <wiz:wizard ReferenceID="#stobj.objectid#" r_stWizard="stWizard">
 
 	<wiz:step name="Options">
-		<wiz:object stobject="#stobj#" wizardID="#stWizard.ObjectID#" lfields="title,intro,displayMethod" format="edit" legend="Rule Options" />
-		
+		<wiz:object stobject="#stobj#" wizardID="#stWizard.ObjectID#" lfields="title,intro,bRHSColumn" format="edit" legend="Rule Options" />
+
 		<cfset oTree = createObject("component","#application.packagepath#.farcry.tree") />
 		<cfset qSiteMap = oTree.getDescendants(objectid='#application.navid.home#',bIncludeSelf=1) />
 
-		<cfoutput>	
-		<div class="fieldSection webskin">
-			<label class="fieldsectionlabel " for="parentID">
+		<cfoutput>
+		<div class="ctrlHolder inlineLabels">
+			<label class="label" for="parentID">
 				Parent Page:
 			</label>
-		
-			<div class="fieldAlign">	
-				<select name="parentID" id="parentID">	
+
+			<div class="multiField">
+				<select name="parentID" id="parentID">
 					<option value="">Use current page</value>
 				</cfoutput>
-		
+
 				<cfloop query="qSiteMap">
-					<cfoutput><option value="#qSiteMap.objectid#"<cfif refobjectid IS "#qSiteMap.objectid#"> selected="selected"</cfif>>#RepeatString('-', qSiteMap.nLevel)# #qSiteMap.objectname#</option></cfoutput>
+					<cfoutput><option value="#qSiteMap.objectid#"<cfif stObj.refobjectid IS "#qSiteMap.objectid#"> selected="selected"</cfif>>#RepeatString('-', qSiteMap.nLevel)# #qSiteMap.objectname#</option></cfoutput>
 				</cfloop>
-		
+
 				<cfoutput>
-				</select>				
+				</select>
 			</div>
 			<br class="clearer">
 		</div>
-		</cfoutput>	
-		
+		</cfoutput>
+
 	</wiz:step>
-	
+
 </wiz:wizard>
 
 <cfsetting enablecfoutputonly="no" />
