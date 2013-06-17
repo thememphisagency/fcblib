@@ -1,0 +1,11 @@
+<cfcomponent displayname="Content Rotator" extends="farcry.core.packages.rules.rules" hint="Rotate through a list of specific content type or a list of handpicked content" bObjectBroker="true">
+
+	<cfproperty ftSeq="1" ftFieldset="General" name="intro" type="longchar" hint="Intro text for paginated content." required="false" default="" ftLabel="Intro Text" ftHint="This content will appear above the content." />
+	<cfproperty ftSeq="2" ftFieldSet="General" name="contentType" type="string" fttype="list" ftrendertype="dropdown" ftList="dmNews:News,dmEvent:Events" ftLabel="Content type" />
+  <cfproperty ftSeq="3" ftFieldset="General" name="aObjectIDs" type="array" hint="Holds objects to be displayed at this particular node." required="no" default="" ftLabel="Handpicked Objects" ftJoin="dmHTML,dmNews,dmEvent" ftHint="Any selection for this field will overwrite the Content Type selection field." />
+	<cfproperty ftSeq="4" ftFieldset="General" name="displayMethod" type="string" hint="Display teaser method to render individual content items." required="true" default="displayTeaserStandard" ftType="webskin" fttypename="ruleContentRotator" ftprefix="displayTeaser" ftLabel="Display Method" ftHint="This determines how each of your content will render." />
+	<cfproperty ftSeq="5" ftFieldset="Results" name="numItems" type="numeric" hint="Number of items" required="false" default="0" ftType="numeric" ftIncludeDecimal="false" ftvalidation="validate-digits" ftHint="0 indicates no limit. Specify a number to limit of the number of items to be displayed." ftLabel="Limit number of content by:" />
+  <cfproperty ftseq="6" ftfieldset="Categorisation" name="categories" type="longchar" hint="A list of categories that the content must match in order to be shown." required="false" default="" fttype="category" ftlabel="Categories" />
+  <cfproperty ftSeq="7" ftFieldset="Categorisation" name="bMatchAllKeywords" type="boolean" hint="Does the content need to match ALL selected keywords?" required="false" default="0" ftType="boolean" ftLabel="Match all the selected categories?" ftHint="If this box is ticked, an article must be tagged with all of the selected categories in order to appear in this area." />
+
+</cfcomponent>

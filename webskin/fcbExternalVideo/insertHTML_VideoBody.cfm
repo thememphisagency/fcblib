@@ -7,9 +7,11 @@
 <!--- IMPORT TAG LIBRARIES --->
 <cfimport taglib="/farcry/plugins/fcblib/tags/fcb/ui" prefix="ui" />
 	<cfset stObj.link = replaceNoCase(stObj.link, '&', '&amp;', 'all') />
-	
+
 	<cfoutput>
+    <div class="video">
 		<iframe class="youtube-player" type="text/html" src="#stObj.link#">
-		</iframe>	
-	</cfoutput>		
+		</iframe>
+    </div>
+	</cfoutput>
 <cfsetting enablecfoutputonly="false" />
