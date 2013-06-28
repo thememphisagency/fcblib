@@ -16,6 +16,7 @@
 		<subsection id="contentpublishing" mergeType="merge" sequence="10" label="Content Publishing">
 			<menu id="MediaLibraryContent" mergeType="merge" sequence="20" label="Media Assets">
 				<menuitem id="listfcbVideo" sequence="30" label="Video Library" link="/admin/customadmin.cfm?module=customlists/fcbVideo.cfm&amp;plugin=fcblib" relatedtype="fcbVideo" />
+				<menuitem id="listdmFlash" sequence="32" label="Flash Library" link="/admin/customadmin.cfm?module=customlists/dmFlash.cfm" relatedtype="dmFlash" />
 			</menu>
 		</subsection>	
 	</section>
