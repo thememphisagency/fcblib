@@ -12,5 +12,5 @@
 			<cfset "#listGetAt(aVariables[i],1,"=")#" = evaluate(de(listGetAt(aVariables[i],2,"=")))>
 		</cfloop>
 	</cfif>
-	<cfinclude template="#stObj.include#" />	
+	<cfinclude template="#stObj.include#" />
 </cfif>

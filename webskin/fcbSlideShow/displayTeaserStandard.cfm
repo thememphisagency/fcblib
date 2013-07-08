@@ -16,60 +16,65 @@
 		<cfset stImage = oImage.getData(objectid=i.data) />
 		<cfsavecontent variable="dataLayer">
 			<cfoutput>
-				<div class="bannerImageContent">			
+				<div class="bannerImageContent">
 					<h3 class="bannerHeading">#i.title#</h3>
-					<p class="bannerSubHeading">#i.subTitle#</p>				
+					<p class="bannerSubHeading">#i.subTitle#</p>
 					<p class="bannerReadMore"></p>
 				</div>
-			</cfoutput> 
+			</cfoutput>
 		</cfsavecontent>
 
 		<cfset stData = StructNew() />
 		<cfset stData['layer'] = dataLayer/>
 		<cfset stData['image'] = "#application.url.imageroot##stImage.SourceImage#" />
-		<cfset ArrayAppend(aImageData, stData) />			
+		<cfset ArrayAppend(aImageData, stData) />
 	</cfloop>
 
+  <cfset sObjectid = 'banner_#replaceNoCase(stObj.objectid, '-', '', 'all')#' />
+
 	<!--- Build Image slideshow settings --->
-	<cfoutput>			
+	<cfoutput>
 
 		<div class="bannerRotator">
 			<script>
-			window.onload = function() {
+        addLoadEvent(function() {
 
-		    	var imageData = #SerializeJSON(aImageData)#;	
-		    	var r = (jQuery.browser.msie)? "?r=" + Math.random(10000) : "";			    	
-			 	Galleria.loadTheme('#application.url.webroot#/js/lib/galleria/themes/dots/galleria.dots.js', r);
-			    Galleria.run('.banner',
-			    {
+          if (typeof bLoadGalleriaTheme === 'undefined'){
+            bLoadGalleriaTheme = 1;
+            var r = (jQuery.browser.msie)? "?r=" + Math.random(10000) : "";
+            Galleria.loadTheme('#application.url.webroot#/js/lib/galleria/themes/dots/galleria.dots.js', r);
+          }
 
-			    	responsive:true,
-			    	lightbox: false,
-			    	showInfo: false,
-			    	debug: #stobj.debugMode#,
-			    	showCounter: false,
-			    	thumbnails: false,
-			    	dataSource: imageData,
+          var imageData = #SerializeJSON(aImageData)#;
 
-					extend: function(options){ 
-						this.bind("loadfinish", function(options) { 
-							var leftBtn = $('.galleria-image-nav-left');
-							var rightBtn = $('.galleria-image-nav-right');
-							if(rightBtn.html().length == 0) rightBtn.html('<i class="icon-right-open"></i>');
-							if(leftBtn.html().length == 0) leftBtn.html('<i class="icon-left-open"></i>');
+          Galleria.run('###sObjectid#', {
 
-						}); 					
-					}
+            imageCrop: #stobj.imageCrop#,
+            transition: '#stobj.transition#',
+            dummy: '#application.url.webroot#/wsimages/defaultBanner.png',
+            responsive:true,
+            lightbox: false,
+            showInfo: false,
+            debug: #stobj.debugMode#,
+            showCounter: false,
+            thumbnails: false,
+            dataSource: imageData,
 
-			    });
-			    Galleria.configure({
-			    	imageCrop: #stobj.imageCrop#,
-			    	transition: '#stobj.transition#',
-			    	dummy: '#application.url.webroot#/wsimages/defaultBanner.png'
-				}); 
-			}
+            extend: function(options){
+              this.bind("loadfinish", function(options) {
+              	var leftBtn = $('###sObjectid# .galleria-image-nav-left');
+              	var rightBtn = $('###sObjectid# .galleria-image-nav-right');
+              	if(rightBtn.html().length == 0) rightBtn.html('<i class="icon-right-open"></i>');
+              	if(leftBtn.html().length == 0) leftBtn.html('<i class="icon-left-open"></i>');
+
+              });
+            }
+
+          });
+
+        });
 			</script>
-			<div class="banner"></div>
+			<div id="#sObjectid#" class="banner"></div>
 		</div>
 
 	</cfoutput>
