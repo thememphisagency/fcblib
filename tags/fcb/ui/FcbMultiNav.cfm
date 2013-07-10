@@ -85,14 +85,6 @@
 	</cfquery>
 </cfif>
 
-
-
-<cffunction name="dump">
-	<cfargument name="arg">
-	<cfdump var="#arg#">
-	<cfabort/>
-</cffunction>
-
 <cfoutput>
 	<div id='fcbNavWrap'>
 		<div id='#attributes.id#' class='clearfix'>
@@ -146,6 +138,7 @@
 	
 </cfloop>
 
+
 <cfscript>
 	// initialise counters
 	currentlevel=0; // nLevel counter
@@ -169,8 +162,6 @@
 		
 		if (iHasViewPermission EQ 1)
 		{
-		
-					
 			if(qNav.nLevel[i] gte attributes.startLevel){
 				//dump("test");
 				//check external links
@@ -252,16 +243,20 @@
 				else if(currentlevel gt previouslevel){
 	
 					if(attributes.bMultiColumn) {
+
 						for(x=1; x <= ArrayLen(aParents); x++){
 							stCurrentParent = aParents[x];
 				
 							for(key in stCurrentParent) {
 									
-								for (j = 1; j lte arraylen(stCurrentParent[key]); j = j + 1)
-								{
-									if(stCurrentParent[key][j] EQ object && arraylen(stCurrentParent[key]) > attributes.multiColumnRows) 													{
+								for (j = 1; j lte arraylen(stCurrentParent[key]); j = j + 1) {
+
+									if(stCurrentParent[key][j] EQ object && arraylen(stCurrentParent[key]) > attributes.multiColumnRows) {
 										bMultiColumnChild = true;	
 										break;		
+									} else if( stCurrentParent[key][j] EQ trim(qNav.objectid[i]) && arraylen(stCurrentParent[key]) > attributes.multiColumnRows ) {
+										bMultiColumnChild = true;	
+										break;
 									}
 								}
 							}				
@@ -272,8 +267,12 @@
 					if(bMultiColumnChild) {
 
 						navTeaserOutput = oNav.getView(objectID=qNav.objectid[i-1],template=attributes.teaserWebskin);
-
-						writeOutput("<div class=""multicolumn lvl#i# lvl#currentlevel-1-attributes.levelOffset# clearfix""><div class=""wrapper"">#navTeaserOutput#<ul class=""lvl#currentlevel-1-attributes.levelOffset#"">");
+							
+						if(currentLevel EQ 3) {
+							writeOutput("<div class=""multicolumn lvl#i# lvl#currentlevel-1-attributes.levelOffset# clearfix""><div class=""wrapper"">#navTeaserOutput#<ul class=""lvl#currentlevel-1-attributes.levelOffset#"">");
+						} else {
+							writeOutput("<div class=""multicolumn lvl#i# lvl#currentlevel-1-attributes.levelOffset# clearfix""><div class=""wrapper""><ul class=""lvl#currentlevel-1-attributes.levelOffset#"">");
+						}
 
 					} else {
 						writeOutput("<div class=""singlecolumn lvl#currentlevel-1-attributes.levelOffset# clearfix""><div class=""wrapper""><ul class=""lvl#currentlevel-1-attributes.levelOffset#"">");
