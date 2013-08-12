@@ -529,4 +529,13 @@
     <cfreturn "#dateFormat(arguments.date,"yyyy-mm-dd")#T#timeFormat(arguments.date,"HH:mm")#:00"/>
   </cffunction>
 
+  <cffunction name="trueFalseFormat" returntype="String">
+    <cfargument name="booleanValue" type="boolean" required="true" />
+    <cfscript>
+      var trueString="true";
+      var falseString="false";
+      return arguments.booleanValue ? trueString : falseString;
+    </cfscript>
+  </cffunction>
+
 </cfcomponent>
