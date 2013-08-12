@@ -289,8 +289,8 @@
 		<cfset var pageTo = 1>
 		<cfset var sURLParam = '' />
 		<cfset var sAnchor = arguments.anchor />
-		<cfset var startrow = getStartRow(itemsPerPage) />
-		<cfset var endrow = getEndRow(itemsPerPage,totalRecs) />
+		<cfset var startrow = getStartRow(itemsPerPage, arguments.currentPage) />
+		<cfset var endrow = getEndRow(itemsPerPage,totalRecs, arguments.currentPage) />
 		<cfset var stReturn = structNew() />
 
 		<cfif totalRecs gt 0>
@@ -482,13 +482,15 @@
 
 	<cffunction name="getStartRow" returntype="numeric">
 		<cfargument name="itemsPerPage" type="numeric">
-		<cfset var startrow = (currentpage-1)*itemsPerPage+1>
+		<cfargument name="currentPage" type="numeric">
+		<cfset var startrow = (arguments.currentPage-1)*itemsPerPage+1>
 		<cfreturn startrow>
 	</cffunction>
 	<cffunction name="getEndRow" returntype="numeric">
 		<cfargument name="itemsPerPage" type="numeric">
 		<cfargument name="totalRecs" type="numeric">
-		<cfset endrow=getStartRow(itemsPerPage)+itemsPerPage-1>
+		<cfargument name="currentPage" type="numeric">
+		<cfset endrow=getStartRow(itemsPerPage, arguments.currentPage)+itemsPerPage-1>
 		<cfif endrow gt totalRecs>
 			<cfset endrow=totalRecs>
 		</cfif>

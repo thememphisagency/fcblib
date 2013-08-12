@@ -8,11 +8,13 @@
 <cfimport taglib="/farcry/core/tags/webskin" prefix="skin">
 
 <cfoutput>
-	<div class="testimonial">
-		<h4>&ldquo;#stObj.body#&rdquo;</h4>
-		<span>#stObj.fullname#</span> <br />
-		<span>#stObj.position#</span>
-	</div> 
+<div class="teaser">
+  <div class="teaserBody">
+    <h3><skin:buildLink objectID="#stobj.objectid#" linkText="#stObj.label#" /></h3>
+    <p>#stObj.Teaser#</p>
+  </div>
+  <skin:buildLink objectid="#stobj.objectID#" class="readMore">#stObj.readMoreText#<i class="icon-right"></i></skin:buildLink>
+</div><!-- END .teaser -->
 </cfoutput>
 
 <cfsetting enablecfoutputonly="false" />
