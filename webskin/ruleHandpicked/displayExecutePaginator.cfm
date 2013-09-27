@@ -1,4 +1,4 @@
-<!--- @@displayname: Content with Paginator (no random order) --->
+<!--- @@displayname: Content with Paginator --->
 
 <cfimport taglib="/farcry/core/tags/webskin" prefix="skin" />
 <cfimport taglib="/farcry/plugins/fcblib/tags/fcb/ui" prefix="ui" />
@@ -50,18 +50,25 @@
 		<cfoutput>
 		<script type="text/javascript">
 			//<![CDATA[
-			
-			//SET UP GLOBAL VARIABLES
-	       	#sRuleId# = new Object();
-			#sRuleId#.divId = '###sRuleId#';
-			#sRuleId#.bPaginate = 1;
-			#sRuleId#.objectid = '#stObj.objectid#';
-			#sRuleId#.total = #iTotal#;
-			
-			jQuery(document).ready(function(){
-				#sRuleId#_assignPagination(jQuery(#sRuleId#.divId));			
+
+			addLoadEvent(function() {
+				initialisePaginatorRule();
 			});
 			
+			function initialisePaginatorRule() {
+				//SET UP GLOBAL VARIABLES
+		       	#sRuleId# = new Object();
+				#sRuleId#.divId = '###sRuleId#';
+				#sRuleId#.bPaginate = 1;
+				#sRuleId#.objectid = '#stObj.objectid#';
+				#sRuleId#.total = #iTotal#;
+				
+				jQuery(document).ready(function(){
+					#sRuleId#_assignPagination(jQuery(#sRuleId#.divId));			
+				});
+			}
+
+
 			function #sRuleId#_assignPagination (obj) {
 				
 				obj.find("p.pagination a,p.pagination span").click(function(){
@@ -70,28 +77,16 @@
 						var sURL = '/apps/ajaxPaginatorHandpicked.cfm';
 						
 						if(jQuery(this).attr("href") == undefined){
-							
-							/*since href is not defined, this must be a span element, check if this is a prev or next 
-								button and add the associated data for the ajax url. */
-								
-							if(jQuery(this).hasClass('next'))
-								sURL += '?currentPage=1';
-							else if(jQuery(this).hasClass('prev'))
-								sURL += '?currentPage=' + #sRuleId#.total;
-														
-							sURL += '&ruleId=' + #sRuleId#.objectid + '&navid=#request.navid#';	
-							
+							/*since href is not defined, this must be a span element*/
+							var aHref = jQuery(this).parent().attr("href").split("##");
 						}
-						else{
-							
+						else {
 							var aHref = jQuery(this).attr("href").split("##");
-							
-							//Fixed IE6 issue where it prepends the domain URL to each url in the response 
-							aHref[0] = aHref[0].replace('http://#CGI.SERVER_NAME#','');
-								
-							sURL = "/apps/ajaxPaginatorHandpicked.cfm" + aHref[0] + "&ruleId=" + #sRuleId#.objectid + '&navid=#request.navid#';
-		
 						}
+
+						aHref[0] = aHref[0].replace('http://#CGI.SERVER_NAME#','');
+
+						sURL = "/apps/ajaxPaginatorHandpicked.cfm" + aHref[0] + "&ruleId=" + #sRuleId#.objectid + '&navid=#request.navid#';
 						
 						#sRuleId#_setPaginatorStatus(0);
 
@@ -99,9 +94,8 @@
 							type: "GET",
 							url: sURL,
 							success: function(response){
-						  	 	#sRuleId#_parseAjaxContent(obj,trim(response));
+						  	 	#sRuleId#_parseAjaxContent(obj,response);
 						  	 	#sRuleId#_assignPagination(obj);
-								assignTeaserHover('##teasers li.teaser');
 								#sRuleId#_setPaginatorStatus(1);
 							},
 							error : function (XMLHttpRequest, textStatus, errorThrown){
@@ -117,7 +111,7 @@
 			}
 			
 			function #sRuleId#_parseAjaxContent(obj,responseObj){
-				obj.html(trim(responseObj));
+				obj.html(responseObj);
 			}
 			
 			function #sRuleId#_setPaginatorStatus(bool) {
@@ -132,6 +126,7 @@
 	
 	<cfoutput>	
 	<div id="#sRuleId#" class="module#sPaginatorClass#">
+		<h2>#stObj.intro#</h2>
 	</cfoutput>
 
 		<cfloop from="#url.startRow#" to="#url.endRow#" index="i">
