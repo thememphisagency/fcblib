@@ -538,4 +538,129 @@
     </cfscript>
   </cffunction>
 
+  <cffunction name="renderMorePagination" output="true" hint="Creates the smart paging links" returntype="struct">
+    <cfargument name="currentPage" required="true" type="string">
+    <cfargument name="itemsPerPage" required="true" type="string">
+    <cfargument name="totalRecs" required="true" type="string">
+    <cfargument name="url" required="true" type="string">
+    <cfargument name="urlHasParam" required="false" type="boolean" default="0">
+    <cfargument name="anchor" required="false" type="string" default="" />
+    <cfargument name="labels" required="false" type="struct" default="#{prev="&##60;&##60;",next="&##62;&##62;"}#" />
+    <cfargument name="enableAjax" required="false" type="boolean" default="0">
+
+    <cfset var maxPaging = totalRecs />
+    <cfset var pagingHTML = "">
+    <cfset var pages = 0>
+    <cfset var middleMaxPages = int(maxPaging/2)>
+    <cfset var middleOffSet = int(maxPaging/2)>
+    <cfset var pageFrom = 1>
+    <cfset var pageTo = 1>
+    <cfset var sURLParam = '' />
+    <cfset var sAnchor = arguments.anchor />
+    <cfset var startrow = getStartRow(itemsPerPage, arguments.currentPage) />
+    <cfset var endrow = getEndRow(itemsPerPage,totalRecs, arguments.currentPage) />
+    <cfset var stReturn = structNew() />
+
+    <cfif totalRecs gt 0>
+      <cfset pages = int(totalRecs/itemsPerPage)>
+      <cfif pages LT totalRecs/itemsPerPage>
+        <cfset pages = pages +1>
+      </cfif>
+
+      <cfif middleMaxPages LT maxPaging/2>
+        <cfset middleMaxPages = middleMaxPages+1>
+      </cfif>
+
+      <cfif currentPage gt pages-middleOffSet>
+        <cfset pageFrom = (pages-maxPaging)+1>
+        <cfset pageTo = pages>
+      <cfelseif currentPage gt middleMaxPages>
+        <cfset pageFrom = currentPage-middleOffSet>
+        <cfset pageTo = currentPage+middleOffSet>
+        <cfif pageTo GT pages>
+          <cfset pageTo = pages>
+        </cfif>
+      <cfelse>
+        <cfset pageFrom = 1>
+        <cfset pageTo = maxPaging>
+      </cfif>
+
+      <cfset sDelimiter = '?'>
+      <cfif arguments.urlHasParam>
+        <cfset sDelimiter = '&amp;'>
+      </cfif>
+
+      <cfset sURLParam = '#arguments.url##sDelimiter#' />
+
+      <!--- just in case pages are less than maxPaging --->
+      <cfif pageFrom lte 0>
+        <cfset pageFrom = 1>
+      </cfif>
+      <cfif pageTo gt pages>
+        <cfset pageTo = pages>
+      </cfif>
+
+      <cfsavecontent variable="pagingHTML">
+          <cfoutput>
+
+          <Cfif currentPage EQ pageTo>
+
+          <cfelse>
+          <div class="morePagination <cfif arguments.enableAjax EQ 1>ajaxPagination</cfif> " >
+            <a href="#sURLParam#currentPage=#currentPage+1##sAnchor#">
+              <div class="diamondPosition">
+                <div class="diamond">
+                  <i class="icon-plus"></i>
+                </div>
+              </div>
+            </a>
+          </div>
+          </Cfif>
+          </cfoutput>
+       </cfsavecontent>
+      <cfsavecontent variable="paginationHTML">
+        <cfoutput>
+          <p class="pagination-text">Displaying <span class="criteria">#startrow#</span><cfif itemsPerPage GT 1><span class="criteria">- #endrow#</span></cfif> of <span class="criteria">#totalRecs#</span> results</p>
+        </cfoutput>
+      </cfsavecontent>
+    </cfif>
+
+    <cfif len(pagingHTML) AND len(paginationHTML) >
+      <cfset stReturn.pagingHTML = trim(pagingHTML) />
+      <cfset stReturn.paginationHTML = trim(paginationHTML) />
+    <cfelse>
+      <cfset stReturn.pagingHTML = "" />
+      <cfset stReturn.paginationHTML = "" />
+    </cfif>
+
+    <cfreturn stReturn>
+  </cffunction>
+
+  <cffunction name="setPaginatorValues" access="public" returntype="struct" output="false">
+      <cfargument name="currentPage" type="numeric" required="true" />
+      <cfargument name="numItems" type="numeric" required="true" />
+      <cfargument name="objectId" type="string" required="true" />
+      <cfargument name="ruleId" type="string" required="true" />
+      <cfargument name="iTotal" type="numeric" required="true" />
+      <cfset var stReturn = structNew() />
+
+      <cfif arguments.currentPage GT 1 AND arguments.objectId eq arguments.ruleId>
+          <cfset stReturn.currentPage = arguments.currentPage />
+          <cfset stReturn.startRow = (arguments.currentPage -1) * numItems + 1 />
+      <cfelse>
+          <cfset stReturn.currentPage = 1 />
+          <cfset stReturn.startRow = 1 />
+      </cfif>
+
+
+      <cfset stReturn.endRow = stReturn.startRow + arguments.numItems - 1 />
+
+      <cfif stReturn.endRow GT arguments.iTotal>
+          <cfset stReturn.endRow = arguments.iTotal />
+      </cfif>
+      <cfset stReturn.iTotal = arguments.iTotal />
+
+      <cfreturn stReturn />
+  </cffunction>
+
 </cfcomponent>

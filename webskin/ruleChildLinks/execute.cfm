@@ -28,10 +28,6 @@
 <div class="module ruleChildLinks">
 </cfoutput>
 
-	<cfif len(trim(stObj.label)) AND stObj.label NEQ '(incomplete)'>
-		<cfoutput><h3 class="heading">#stObj.label#</h3></cfoutput>
-	</cfif>
-
   <cfif qGetChildren.recordcount GT 0>
 
   	<!--- loop over children --->
@@ -78,7 +74,7 @@
   							</cfif>
 
                 <cfif stObj.bRHSColumn>
-                  <cfset sTeaserContent = '<li><a href="#application.fAPI.getLink(objectid=stObjTemp.objectid)#">#stObjTemp.label#</a></li>' />
+                  <cfset sTeaserContent = '<li><a href="#application.fAPI.getLink(objectid=stNavTemp.objectid)#">#stNavTemp.label#</a></li>' />
                 </cfif>
 
 
@@ -102,6 +98,11 @@
   </cfif>
 
   <cfif len(trim(sContent)) GT 0>
+
+    <cfif len(trim(stObj.label)) AND stObj.label NEQ '(incomplete)'>
+      <cfoutput><h3 class="heading">#stObj.label#</h3></cfoutput>
+    </cfif>
+
     <cfif stObj.bRHSColumn>
       <cfoutput>
         <ul>#sContent#</ul>
@@ -114,6 +115,7 @@
           </div>
       </cfoutput>
     </cfif>
+
   </cfif>
 
 <cfoutput>
