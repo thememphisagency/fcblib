@@ -88,7 +88,7 @@
   				</cfif>
   			</cfloop>
   		<cfelse>
-  			<skin:view objectid="#stCurrentNav.objectid#" webskin="#sDisplayMethod#" r_html="sTeaserContent" alternateHTML="<!-- #sDisplayMethod# does not exist for #stObjTemp.typename# -->" />
+  			<skin:view objectid="#stCurrentNav.objectid#" webskin="#sDisplayMethod#" r_html="sTeaserContent" alternateHTML="<!-- #sDisplayMethod# does not exist -->" />
   		</cfif>
 
       <cfset sContent &= trim(sTeaserContent) />
